@@ -4,6 +4,8 @@ import ReactFlow, {
   useEdgesState,
   addEdge,
   ConnectionLineType,
+  Background,
+  Controls,
 } from 'reactflow';
 import CustomNode from './CustomNode';
 
@@ -69,7 +71,10 @@ function Flow() {
         defaultEdgeOptions={defaultEdgeOptions}
         connectionLineType={ConnectionLineType.SmoothStep}
         fitView
-      />
+      >
+        <Background variant="dots" gap={20} size={1} />
+        <Controls />
+      </ReactFlow>
     </div>
   );
 }
