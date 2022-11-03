@@ -5,8 +5,9 @@
   padding: 0 8px;
   border-radius: 4px;
   color: rgb(79, 79, 79);
+  display: flex;
+  align-items: center;
   height: 40px;
-  line-height: 38px;
 }
 
 .selected {
@@ -17,5 +18,7 @@
 .handle {
   opacity: 0;
   width: 0;
+  min-width: 0;
   height: 0;
+  min-height: 0;
 }
