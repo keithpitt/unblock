@@ -22,6 +22,8 @@ export default [
     id: '4',
     data: { label: 'Deploy to Production' },
     position: { x: 400, y: 200 },
+    height: 300,
+    width: 300,
     type: 'section'
   },
 ];

@@ -30,6 +30,28 @@ const useStore = create((set, get) => ({
       edges: addEdge(connection, get().edges),
     });
   },
+
+  updateNodeStyle: (nodeId, style) => {
+    set({
+      nodes: get().nodes.map((node) => {
+        if (node.id === nodeId) {
+          node.style = { ...node.style, style };
+        }
+        return node;
+      }),
+    });
+  },
+
+  updateNodePosition: (nodeId, callback) => {
+    set({
+      nodes: get().nodes.map((node) => {
+        if (node.id === nodeId) {
+          node.position = callback(node.position);
+        }
+        return node;
+      }),
+    });
+  }
 }));
 
 export default useStore;
