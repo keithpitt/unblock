@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useEffect } from 'react';
 import ReactFlow, {
   useNodesState,
   useEdgesState,
@@ -8,14 +8,10 @@ import ReactFlow, {
   Background,
   Controls,
 } from 'reactflow';
-
 import useStore from './store';
-
 import styles from './Flow.module.css';
-
 import SectionNode from './SectionNode';
 import StepNode from './StepNode';
-
 import { GRID_SPACE } from './constants';
 
 const nodeTypes = {
@@ -37,9 +33,18 @@ const proOptions = {
 }
 
 function Flow() {
-  const { nodes, edges, onNodesChange } = useStore();
+  const {
+    liveblocks: { enterRoom, leaveRoom },
+    nodes,
+    edges,
+    onNodesChange,
+  } = useStore();
 
-  const spacePressed = useKeyPress('Space');
+  useEffect(() => {
+    const roomId = "test456";
+    enterRoom(roomId);
+    return () => leaveRoom(roomId);
+  }, [enterRoom, leaveRoom]);
 
   return (
     <div className={styles.flow}>
@@ -52,7 +57,7 @@ function Flow() {
         connectionLineType={ConnectionLineType.SmoothStep}
 
         // Only drag when space bar is pressed
-        panOnDrag={spacePressed}
+        panOnDrag={useKeyPress('Space')}
 
         // Pan on scroll wheel
         panOnScroll

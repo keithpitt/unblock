@@ -1,48 +1,51 @@
 import create from 'zustand';
-
 import {
   addEdge,
   applyNodeChanges,
   applyEdgeChanges,
 } from 'reactflow';
-
+import { createClient, EnsureJson } from "@liveblocks/client";
+import { liveblocks } from "@liveblocks/zustand";
 import initialNodes from './initialNodes';
 import initialEdges from './initialEdges';
 
-const useStore = create((set, get) => ({
-  nodes: initialNodes,
-  edges: initialEdges,
+const client = createClient({
+  publicApiKey: process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY
+});
 
-  onNodesChange: (changes) => {
-    set({
-      nodes: applyNodeChanges(changes, get().nodes),
-    });
-  },
+const useStore = create(
+  liveblocks(
+    (set, get) => ({
+      nodes: initialNodes,
+      edges: initialEdges,
 
-  onEdgesChange: (changes) => {
-    set({
-      edges: applyEdgeChanges(changes, get().edges),
-    });
-  },
+      onNodesChange: (changes) => {
+        set({
+          nodes: applyNodeChanges(changes, get().nodes),
+        });
+      },
 
-  onConnect: (connection) => {
-    set({
-      edges: addEdge(connection, get().edges),
-    });
-  },
-
-  resizeNodeWithCallback: (nodeId, callback) => {
-    set({
-      nodes: get().nodes.map((node) => {
-        if (node.id === nodeId) {
-          const result = callback({ position: node.position, style: node.style });
-          node.position = { ...node.position, ...result.position };
-          node.style = { ...node.style, ...result.style };
-        }
-        return node;
-      }),
-    });
-  },
-}));
+      resizeNodeWithCallback: (nodeId, callback) => {
+        set({
+          nodes: get().nodes.map((node) => {
+            if (node.id === nodeId) {
+              const result = callback({ position: node.position, style: node.style });
+              node.position = { ...node.position, ...result.position };
+              node.style = { ...node.style, ...result.style };
+            }
+            return node;
+          }),
+        });
+      },
+    }),
+    {
+      client,
+      storageMapping: {
+        nodes: true,
+        edges: true
+      }
+    }
+  )
+);
 
 export default useStore;
