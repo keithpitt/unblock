@@ -37,7 +37,7 @@ const proOptions = {
 }
 
 function Flow() {
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore();
+  const { nodes, edges, onNodesChange } = useStore();
 
   const spacePressed = useKeyPress('Space');
 
@@ -47,8 +47,6 @@ function Flow() {
         nodes={nodes}
         onNodesChange={onNodesChange}
         edges={edges}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
         nodeTypes={nodeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
         connectionLineType={ConnectionLineType.SmoothStep}
@@ -61,8 +59,17 @@ function Flow() {
 
         proOptions={proOptions}
 
+        // Snap dragging to our grid
         snapToGrid
         snapGrid={[GRID_SPACE, GRID_SPACE]}
+
+        // Don't allow new connections to be made
+        nodesConnectable={false}
+
+        // Turn off tab to focus (for now). Handles are showing up as little blue
+        // circles and I don't know how to turn them ofq
+        nodesFocusable={false}
+        edgesFocusable={false}
       >
         <Background variant="dots" gap={GRID_SPACE} size={1} />
         <Controls showInteractive={false} />

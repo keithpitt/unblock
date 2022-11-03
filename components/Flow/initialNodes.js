@@ -23,6 +23,7 @@ export default [
     data: { label: 'Deploy to Production' },
     position: { x: 400, y: 200 },
     style: { height: 300, width: 300 },
+    zIndex: -1,
     type: 'section'
   },
 ];
