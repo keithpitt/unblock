@@ -8,10 +8,9 @@ import ReactFlow, {
   Controls,
 } from 'reactflow';
 
-import CustomNode from './CustomNode';
-import initialNodes from './initialNodes';
-import initialEdges from './initialEdges';
+import useStore from './store';
 
+import CustomNode from './CustomNode';
 import styles from './Flow.module.css';
 
 const nodeTypes = {
@@ -24,12 +23,7 @@ const defaultEdgeOptions = {
 };
 
 function Flow() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
-  );
+  const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore();
 
   return (
     <div className={styles.flow}>
