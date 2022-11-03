@@ -31,27 +31,18 @@ const useStore = create((set, get) => ({
     });
   },
 
-  updateNodeStyle: (nodeId, style) => {
+  resizeNodeWithCallback: (nodeId, callback) => {
     set({
       nodes: get().nodes.map((node) => {
         if (node.id === nodeId) {
-          node.style = { ...node.style, style };
+          const result = callback({ position: node.position, style: node.style });
+          node.position = { ...node.position, ...result.position };
+          node.style = { ...node.style, ...result.style };
         }
         return node;
       }),
     });
   },
-
-  updateNodePosition: (nodeId, callback) => {
-    set({
-      nodes: get().nodes.map((node) => {
-        if (node.id === nodeId) {
-          node.position = callback(node.position);
-        }
-        return node;
-      }),
-    });
-  }
 }));
 
 export default useStore;
