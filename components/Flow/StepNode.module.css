@@ -1,0 +1,16 @@
+.container {
+  background: #FAFDFA;
+  border: 1px solid #14cc80;
+  font-size: 14px;
+  padding: 0 8px;
+  border-radius: 4px;
+  color: rgb(79, 79, 79);
+  height: 35px;
+  line-height: 34px;
+}
+
+.handle {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}

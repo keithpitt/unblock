@@ -10,11 +10,14 @@ import ReactFlow, {
 
 import useStore from './store';
 
-import CustomNode from './CustomNode';
 import styles from './Flow.module.css';
+
+import CustomNode from './CustomNode';
+import StepNode from './StepNode';
 
 const nodeTypes = {
   custom: CustomNode,
+  step: StepNode,
 };
 
 const defaultEdgeOptions = {
@@ -36,7 +39,6 @@ function Flow() {
         nodeTypes={nodeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
         connectionLineType={ConnectionLineType.SmoothStep}
-        fitView
       >
         <Background variant="dots" gap={20} size={1} />
         <Controls />
