@@ -4,6 +4,8 @@ import { makeMoveable, Draggable, Resizable, } from 'react-moveable';
 import styles from './SectionNode.module.css';
 import useStore from './store';
 
+import { GRID_SPACE } from './constants';
+
 const Moveable = makeMoveable([Draggable, Resizable]);
 
 const SectionNode = ({ id, data, selected, isDragging }) => {
@@ -51,7 +53,7 @@ const SectionNode = ({ id, data, selected, isDragging }) => {
         onResize={onResize}
         origin={true}
         keepRatio={false}
-        throttleResize={20}
+        throttleResize={GRID_SPACE}
       />
 
       <div className={styles.container} ref={resizeRef}>

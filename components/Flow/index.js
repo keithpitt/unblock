@@ -16,6 +16,8 @@ import styles from './Flow.module.css';
 import SectionNode from './SectionNode';
 import StepNode from './StepNode';
 
+import { GRID_SPACE } from './constants';
+
 const nodeTypes = {
   section: SectionNode,
   step: StepNode,
@@ -58,8 +60,11 @@ function Flow() {
         panOnScroll
 
         proOptions={proOptions}
+
+        snapToGrid
+        snapGrid={[GRID_SPACE, GRID_SPACE]}
       >
-        <Background variant="dots" gap={20} size={1} />
+        <Background variant="dots" gap={GRID_SPACE} size={1} />
         <Controls showInteractive={false} />
       </ReactFlow>
     </div>
