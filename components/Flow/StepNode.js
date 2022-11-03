@@ -3,10 +3,10 @@ import { Handle, Position } from 'reactflow';
 
 import styles from './StepNode.module.css';
 
-const StepNode = ({ id, data, x, y, sourcePosition, targetPosition }) => {
+const StepNode = ({ id, data, x, y, sourcePosition, targetPosition, selected }) => {
   return (
     <>
-      <div className={styles.container}>
+      <div className={selected ? styles.selected : styles.default}>
         <div>{data.label}</div>
       </div>
 

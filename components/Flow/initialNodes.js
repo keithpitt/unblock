@@ -22,6 +22,6 @@ export default [
     id: '4',
     data: { label: 'Deploy to Production' },
     position: { x: 400, y: 200 },
-    type: 'custom'
+    type: 'section'
   },
 ];

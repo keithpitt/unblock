@@ -3,6 +3,7 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   addEdge,
+  useKeyPress,
   ConnectionLineType,
   Background,
   Controls,
@@ -12,11 +13,11 @@ import useStore from './store';
 
 import styles from './Flow.module.css';
 
-import CustomNode from './CustomNode';
+import SectionNode from './SectionNode';
 import StepNode from './StepNode';
 
 const nodeTypes = {
-  custom: CustomNode,
+  section: SectionNode,
   step: StepNode,
 };
 
@@ -27,6 +28,8 @@ const defaultEdgeOptions = {
 
 function Flow() {
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore();
+
+  const spacePressed = useKeyPress('Space');
 
   return (
     <div className={styles.flow}>
@@ -39,9 +42,15 @@ function Flow() {
         nodeTypes={nodeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
         connectionLineType={ConnectionLineType.SmoothStep}
+
+        // Only drag when space bar is pressed
+        panOnDrag={spacePressed}
+
+        // Pan on scroll wheel
+        panOnScroll
       >
         <Background variant="dots" gap={20} size={1} />
-        <Controls />
+        <Controls showInteractive={false} />
       </ReactFlow>
     </div>
   );

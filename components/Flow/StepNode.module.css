@@ -1,12 +1,17 @@
-.container {
-  background: #FAFDFA;
-  border: 1px solid #14cc80;
+.default {
+  background: var(--white);
+  border: 1px solid var(--lime-500);
   font-size: 14px;
   padding: 0 8px;
   border-radius: 4px;
   color: rgb(79, 79, 79);
-  height: 35px;
-  line-height: 34px;
+  height: 40px;
+  line-height: 38px;
+}
+
+.selected {
+  composes: default;
+  box-shadow: 0 0 0 2px var(--lime-500);
 }
 
 .handle {
