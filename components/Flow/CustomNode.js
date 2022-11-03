@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import { Handle, Position } from 'reactflow';
 
+import styles from './CustomNode.module.css';
+
 const sourceHandleStyleA = { left: 50 };
 const sourceHandleStyleB = {
   right: 50,
@@ -11,7 +13,7 @@ const CustomNode = ({ data, xPos, yPos }) => {
   return (
     <>
       <Handle type="target" position={Position.Top} />
-      <div>
+      <div className={styles.container}>
         <div>
           Label: <strong>{data.label}</strong>
         </div>
