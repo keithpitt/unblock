@@ -26,6 +26,14 @@ const defaultEdgeOptions = {
   type: 'smoothstep',
 };
 
+const proOptions = {
+  // passing in the account property will enable hiding the attribution
+  account: 'paid-pro',
+
+  // in combination with the account property, hideAttribution: true will remove the attribution
+  hideAttribution: true
+}
+
 function Flow() {
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore();
 
@@ -48,6 +56,8 @@ function Flow() {
 
         // Pan on scroll wheel
         panOnScroll
+
+        proOptions={proOptions}
       >
         <Background variant="dots" gap={20} size={1} />
         <Controls showInteractive={false} />
