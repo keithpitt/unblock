@@ -30,7 +30,10 @@ const useStore = create(
           nodes: get().nodes.map((node) => {
             if (node.id === nodeId) {
               const result = callback(node);
-              return { ...node, style: result, width: result.width, height: result.height };
+              // Setting `updatedAt` is a bit of a hack. Changing style doesn't
+              // seem to trigger a re-render of a custom node, which is what we
+              // rely on to update the moveable box on other clients.
+              return { ...node, style: result, data: { ...node.data, updatedAt: new Date().toString() } };
             }
             return node;
           }),

@@ -22,7 +22,7 @@ export default [
     id: '4',
     data: { label: 'Deploy to Production' },
     position: { x: 400, y: 200 },
-    style: { height: 300, width: 300 },
+    style: { height: 100, width: 100 },
     zIndex: -1,
     type: 'section'
   },

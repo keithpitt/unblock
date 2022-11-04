@@ -11,10 +11,17 @@ const Moveable = makeMoveable([Draggable, Resizable]);
 const SectionNode = ({ id, data, selected, isDragging }) => {
   const resizeRef = useRef(null);
   const nodeElementRef = useRef(null);
+  const moveableRef = useRef(null);
 
   useEffect(() => {
     nodeElementRef.current = document.querySelector(`.react-flow__node[data-id="${id}"]`);
   }, [id]);
+
+  useEffect(() => {
+    if (moveableRef.current && !moveableRef.isDragging) {
+      moveableRef.current.updateRect();
+    }
+  }, [data]);
 
   const updateNodePosition = useStore((state) => state.updateNodePosition);
   const updateNodeStyle = useStore((state) => state.updateNodeStyle);
@@ -50,6 +57,7 @@ const SectionNode = ({ id, data, selected, isDragging }) => {
   return (
     <>
       <Moveable
+        ref={moveableRef}
         className="nodrag"
         resizable={selected}
         rotatable={false}
