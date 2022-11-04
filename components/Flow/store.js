@@ -25,13 +25,23 @@ const useStore = create(
         });
       },
 
-      resizeNodeWithCallback: (nodeId, callback) => {
+      updateNodeStyle: (nodeId, callback) => {
         set({
           nodes: get().nodes.map((node) => {
             if (node.id === nodeId) {
-              const result = callback({ position: node.position, style: node.style });
-              node.position = { ...node.position, ...result.position };
-              node.style = { ...node.style, ...result.style };
+              const result = callback(node);
+              return { ...node, style: result, width: result.width, height: result.height };
+            }
+            return node;
+          }),
+        });
+      },
+
+      updateNodePosition: (nodeId, callback) => {
+        set({
+          nodes: get().nodes.map((node) => {
+            if (node.id === nodeId) {
+              return { ...node, position: callback(node) };
             }
             return node;
           }),

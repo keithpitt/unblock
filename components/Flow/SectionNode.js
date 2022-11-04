@@ -16,7 +16,8 @@ const SectionNode = ({ id, data, selected, isDragging }) => {
     nodeElementRef.current = document.querySelector(`.react-flow__node[data-id="${id}"]`);
   }, [id]);
 
-  const resizeNodeWithCallback = useStore((state) => state.resizeNodeWithCallback);
+  const updateNodePosition = useStore((state) => state.updateNodePosition);
+  const updateNodeStyle = useStore((state) => state.updateNodeStyle);
 
   const onResize = (event) => {
     if (!nodeElementRef.current) {
@@ -26,21 +27,25 @@ const SectionNode = ({ id, data, selected, isDragging }) => {
     event.delta[0] && (nodeElementRef.current.style.width = `${event.width}px`);
     event.delta[1] && (nodeElementRef.current.style.height = `${event.height}px`);
 
-    resizeNodeWithCallback(id, ({style, position}) => {
-      const changes = {
-        style: {},
-        position: {
-          x: event.direction[0] === -1 ? position.x - event.delta[0] : position.x,
-          y: event.direction[1] === -1 ? position.y - event.delta[1] : position.y,
-        }
+    updateNodePosition(id, ({ position }) => {
+      return {
+        x: event.direction[0] === -1 ? position.x - event.delta[0] : position.x,
+        y: event.direction[1] === -1 ? position.y - event.delta[1] : position.y,
       }
-
-      event.delta[0] && (changes.style.width = event.width);
-      event.delta[1] && (changes.style.height = event.height);
-
-      return changes;
     });
   };
+
+  const onResizeEnd = (event) => {
+    if (!nodeElementRef.current) { return; }
+
+    updateNodeStyle(id, ({ style }) => {
+      return {
+        ...style,
+        width: nodeElementRef.current.style.width,
+        height: nodeElementRef.current.style.height,
+      }
+    });
+  }
 
   return (
     <>
@@ -51,6 +56,7 @@ const SectionNode = ({ id, data, selected, isDragging }) => {
         hideDefaultLines={!selected}
         target={resizeRef}
         onResize={onResize}
+        onResizeEnd={onResizeEnd}
         origin={true}
         keepRatio={false}
         throttleResize={GRID_SPACE}
