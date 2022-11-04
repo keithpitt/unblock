@@ -5,6 +5,7 @@
   border-radius: 5px;
   border: 1px solid var(--red-700);;
   background: var(--red-100);
+  z-index: 100;
 }
 
 .label {
@@ -28,4 +29,10 @@
   right: 0;
   background: black;
   border-radius: 4px;
+}
+
+.colorPicker {
+  position: absolute;
+  bottom: 0px;
+  transform: translate(0, 130%);
 }

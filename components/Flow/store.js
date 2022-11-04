@@ -50,6 +50,17 @@ const useStore = create(
           }),
         });
       },
+
+      updateNodeData: (nodeId, callback) => {
+        set({
+          nodes: get().nodes.map((node) => {
+            if (node.id === nodeId) {
+              return { ...node, data: { ...node.data, ...callback(node) } };
+            }
+            return node;
+          }),
+        });
+      },
     }),
     {
       client,

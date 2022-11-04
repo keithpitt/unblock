@@ -1,10 +1,9 @@
 import { memo, useRef, useEffect } from 'react';
 import { makeMoveable, Draggable, Resizable, } from 'react-moveable';
-
 import styles from './SectionNode.module.css';
 import useStore from './store';
-
 import { GRID_SPACE } from './constants';
+import { GithubPicker } from 'react-color';
 
 const Moveable = makeMoveable([Draggable, Resizable]);
 
@@ -25,6 +24,7 @@ const SectionNode = ({ id, data, selected, dragging }) => {
 
   const updateNodePosition = useStore((state) => state.updateNodePosition);
   const updateNodeStyle = useStore((state) => state.updateNodeStyle);
+  const updateNodeData = useStore((state) => state.updateNodeData);
 
   const onResize = (event) => {
     if (!nodeElementRef.current) {
@@ -54,6 +54,12 @@ const SectionNode = ({ id, data, selected, dragging }) => {
     });
   }
 
+  const onColorChange = (event) => {
+    updateNodeData(id, ({ data }) => {
+      return { color: event.hex }
+    });
+  };
+
   return (
     <>
       <Moveable
@@ -70,12 +76,15 @@ const SectionNode = ({ id, data, selected, dragging }) => {
         throttleResize={GRID_SPACE}
       />
 
-      <div className={styles.container} ref={resizeRef}>
+      <div className={styles.container} ref={resizeRef} style={{backgroundColor: data.color}}>
         <div
           className={styles.toolbar}
           style={{display: (selected && !dragging ? 'block' : 'none')}}
         >
-          <input type="color" />
+          <button>Color</button>
+          <div className={styles.colorPicker}>
+            <GithubPicker onChangeComplete={onColorChange} width={213} />
+          </div>
         </div>
         <div className={styles.label}>{data.label}</div>
       </div>
