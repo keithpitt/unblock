@@ -8,7 +8,7 @@ import { GRID_SPACE } from './constants';
 
 const Moveable = makeMoveable([Draggable, Resizable]);
 
-const SectionNode = ({ id, data, selected, isDragging }) => {
+const SectionNode = ({ id, data, selected, dragging }) => {
   const resizeRef = useRef(null);
   const nodeElementRef = useRef(null);
   const moveableRef = useRef(null);
@@ -71,6 +71,12 @@ const SectionNode = ({ id, data, selected, isDragging }) => {
       />
 
       <div className={styles.container} ref={resizeRef}>
+        <div
+          className={styles.toolbar}
+          style={{display: (selected && !dragging ? 'block' : 'none')}}
+        >
+          <input type="color" />
+        </div>
         <div className={styles.label}>{data.label}</div>
       </div>
     </>

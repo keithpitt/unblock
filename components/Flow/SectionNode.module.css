@@ -20,3 +20,12 @@
   font-size: 14px;
   white-space: nowrap;
 }
+
+.toolbar {
+  padding: 3px 5px;
+  position: absolute;
+  top: -30px;
+  right: 0;
+  background: black;
+  border-radius: 4px;
+}
