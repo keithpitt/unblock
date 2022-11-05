@@ -9,6 +9,11 @@ export async function getServerSideProps(context) {
     roomId = "default";
   }
 
+  const res = await fetch(`https://api.liveblocks.io/v2/rooms/${encodeURIComponent(roomId)}/storage`, {
+    headers: { Authorization: `Bearer ${process.env.LIVEBLOCKS_PRIVATE_KEY}` }
+  });
+  const json = await res.json()
+
   return { props: { roomId } };
 }
 
