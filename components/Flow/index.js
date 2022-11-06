@@ -14,6 +14,7 @@ import SectionNode from './SectionNode';
 import StepNode from './StepNode';
 import { GRID_SPACE } from './constants';
 
+// our custom node types
 const nodeTypes = {
   section: SectionNode,
   step: StepNode,
@@ -35,15 +36,14 @@ const proOptions = {
 function Flow({ roomId, initialEdges, initialNodes }) {
   const {
     liveblocks: { enterRoom, leaveRoom },
+    init,
     nodes,
     edges,
     onNodesChange,
   } = useStore();
 
-  const initStore = useStore((state) => state.init);
-
   useEffect(() => {
-    initStore({ edges: initialEdges, nodes: initialNodes });
+    init({ edges: initialEdges, nodes: initialNodes });
   }, [initialEdges, initialNodes]);
 
   useEffect(() => {
