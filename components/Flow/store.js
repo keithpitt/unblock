@@ -6,8 +6,6 @@ import {
 } from 'reactflow';
 import { createClient, EnsureJson } from "@liveblocks/client";
 import { liveblocks } from "@liveblocks/zustand";
-import initialNodes from './initialNodes';
-import initialEdges from './initialEdges';
 
 const client = createClient({
   publicApiKey: process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY
@@ -16,8 +14,12 @@ const client = createClient({
 const useStore = create(
   liveblocks(
     (set, get) => ({
-      nodes: initialNodes,
-      edges: initialEdges,
+      nodes: [],
+      edges: [],
+
+      init: ({ nodes, edges }) => {
+        set({ nodes, edges });
+      },
 
       onNodesChange: (changes) => {
         set({

@@ -3,6 +3,41 @@ import styles from '../styles/Home.module.css'
 
 import Flow from 'components/Flow';
 
+const initialEdges = [
+  { id: 'e1-2', source: '1', target: '2' },
+  { id: 'e1-3', source: '1', target: '3' },
+];
+
+const initialNodes = [
+  {
+    id: '1',
+    type: 'input',
+    data: { label: 'Upload Pipeline' },
+    position: { x: 250, y: 5 },
+    type: 'step'
+  },
+  {
+    id: '2',
+    data: { label: 'Build Docker Image' },
+    position: { x: 100, y: 100 },
+    type: 'step'
+  },
+  {
+    id: '3',
+    data: { label: 'Linting' },
+    position: { x: 400, y: 100 },
+    type: 'step'
+  },
+  {
+    id: '4',
+    data: { label: 'Deploy to Production' },
+    position: { x: 400, y: 200 },
+    style: { height: 100, width: 100 },
+    zIndex: -1,
+    type: 'section'
+  },
+];
+
 export async function getServerSideProps(context) {
   let roomId = context.query['room'];
   if (roomId === null || roomId === undefined || (roomId && roomId.trim() === "")) {
@@ -14,7 +49,7 @@ export async function getServerSideProps(context) {
   });
   const json = await res.json()
 
-  return { props: { roomId } };
+  return { props: { roomId, initialEdges, initialNodes } };
 }
 
 export default function Home({ roomId }) {
@@ -24,7 +59,7 @@ export default function Home({ roomId }) {
         <title>🎮</title>
       </Head>
 
-      <Flow roomId={roomId} />
+      <Flow roomId={roomId} initialEdges={initialEdges} initialNodes={initialNodes} />
     </div>
   )
 }

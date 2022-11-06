@@ -32,13 +32,19 @@ const proOptions = {
   hideAttribution: true
 }
 
-function Flow({ roomId }) {
+function Flow({ roomId, initialEdges, initialNodes }) {
   const {
     liveblocks: { enterRoom, leaveRoom },
     nodes,
     edges,
     onNodesChange,
   } = useStore();
+
+  const initStore = useStore((state) => state.init);
+
+  useEffect(() => {
+    initStore({ edges: initialEdges, nodes: initialNodes });
+  }, [initialEdges, initialNodes]);
 
   useEffect(() => {
     enterRoom(roomId);
