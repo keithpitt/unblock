@@ -1,10 +1,10 @@
 .default {
-  background: var(--white);
+  background: var(--step-background-color);
   border: 1px solid var(--lime-500);
   font-size: 14px;
   padding: 0 8px;
   border-radius: 4px;
-  color: rgb(79, 79, 79);
+  color: var(--step-color);
   display: flex;
   align-items: center;
   height: 40px;

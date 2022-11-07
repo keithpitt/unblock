@@ -1,4 +1,23 @@
 .flow {
   flex-grow: 1;
   font-size: 12px;
+  cursor: pointer;
+
+  --step-background-color: white;
+  --step-color: black;
 }
+
+[data-theme='dark'] .flow {
+  --step-background-color: #141923;
+  --step-color: white;
+}
+
+[data-theme='dark'] .flow :global(.react-flow__controls-button) {
+  background: #202631;
+  border-bottom: 0;
+}
+
+/* ReactFlow always shows a grabby hand by default, so let's not do that unless
+ * you're trying to drag the canvas around */
+.flow :global(.react-flow__pane) { cursor: default; }
+.flow :global(.react-flow__pane.dragging) { cursor: grabbing; }
