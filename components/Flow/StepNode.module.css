@@ -8,11 +8,21 @@
   display: flex;
   align-items: center;
   height: 40px;
+  transition-property: transform;
+  transition-duration: 0.2s;
+}
+
+:global(.dragging) .default {
+  /* Making it a bit bigger when dragging is nice and fun, but needs more tweaking */
+  /* transform: scale(1.5) translate(0px,0px); */
 }
 
 .selected {
-  composes: default;
   box-shadow: 0 0 0 2px var(--lime-500);
+}
+
+[data-theme='dark'] .selected {
+  box-shadow: 1px 1px 43px 10px rgba(204,51,207,0.46);
 }
 
 .handle {
