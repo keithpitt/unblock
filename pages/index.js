@@ -1,7 +1,9 @@
 import Head from 'next/head'
+import { useTheme } from 'next-themes'
 import styles from '../styles/Home.module.css'
 
 import Flow from 'components/Flow';
+import ThemeSwitch from 'components/ThemeSwitch';
 
 const initialEdges = [
   { id: 'e1-2', source: '1', target: '2' },
@@ -59,6 +61,7 @@ export default function Home({ roomId }) {
         <title>🎮</title>
       </Head>
 
+      <ThemeSwitch />
       <Flow roomId={roomId} initialEdges={initialEdges} initialNodes={initialNodes} />
     </div>
   )
