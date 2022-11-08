@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactFlow, {
   useNodesState,
   useEdgesState,
@@ -13,6 +13,7 @@ import styles from './Flow.module.css';
 import SectionNode from './SectionNode';
 import StepNode from './StepNode';
 import { GRID_SPACE } from './constants';
+import Cursor from 'components/Cursor';
 
 // our custom node types
 const nodeTypes = {
@@ -34,11 +35,15 @@ const proOptions = {
 }
 
 function Flow({ roomId, initialEdges, initialNodes }) {
+  const reactFlowWrapper = useRef(null);
+  const [reactFlowInstance, setReactFlowInstance] = useState(null);
+
   const {
     liveblocks: { enterRoom, leaveRoom },
     init,
     nodes,
     edges,
+    setCursor,
     onNodesChange,
   } = useStore();
 
@@ -51,8 +56,82 @@ function Flow({ roomId, initialEdges, initialNodes }) {
     return () => leaveRoom(roomId);
   }, [enterRoom, leaveRoom]);
 
+  const [ reactFlowBounds, setReactFlowBounds ] = useState(null);
+
+  const onPointerEnter = (e) => {
+    // We need the bounds when ever the mouse is moving around, so we might as
+    // well cache it when the mouse enters the area
+    setReactFlowBounds(reactFlowWrapper.current.getBoundingClientRect());
+  }
+
+  const onPointerMove = (e) => {
+    e.preventDefault();
+
+    if (reactFlowWrapper && reactFlowInstance && reactFlowBounds) {
+      // Calculate the cursor relative to where it is in the react flow canvas
+      const position = reactFlowInstance.project({
+        x: event.clientX - reactFlowBounds.left,
+        y: event.clientY - reactFlowBounds.top,
+      });
+
+      setCursor(position);
+    }
+  };
+
+  const onPointerLeave = (e) => {
+    e.preventDefault();
+
+    // Mouse has gone!
+    // setCursor(null);
+  };
+
+  const otherCursors = useStore((state) => state.liveblocks.others).map((user) => [ user.connectionId, user.presence.cursor ]);
+
+  // const others = useOthersMapped(
+  //   (other) => ({
+  //     cursor: other.presence.cursor,
+  //     info: other.info,
+  //   })
+  // );
+
+  const COLORS_PRESENCE = ["255, 69, 225", "255, 64, 64", "255, 166, 3"];
+
+  // const onPaneMove = (_, viewport) => {
+  //   if (viewport) {
+  //   console.log(_, viewport);
+  //   }
+  // }
+
   return (
-    <div className={styles.flow}>
+    <div
+      className={styles.flow}
+      ref={reactFlowWrapper}
+      onPointerEnter={onPointerEnter}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
+    >
+
+    <div style={{position: "absolute"}}>
+
+        {otherCursors.map(([id, cursor]) => {
+          if (cursor == null) {
+            return null;
+          }
+
+          return (
+            <Cursor
+            key={`cursor-${id}`}
+            color={`rgb(${
+                  COLORS_PRESENCE[id % COLORS_PRESENCE.length]
+                }`}
+            x={cursor.x}
+            y={cursor.y}
+          />
+          );
+        })}
+      </div>
+
+
       <ReactFlow
         nodes={nodes}
         onNodesChange={onNodesChange}
@@ -80,6 +159,13 @@ function Flow({ roomId, initialEdges, initialNodes }) {
         // circles and I don't know how to turn them ofq
         nodesFocusable={false}
         edgesFocusable={false}
+
+        onMove={onPaneMove}
+
+      //onPaneMouseMove={onPaneMouseMove}
+    //onPaneMouseLeave={onPaneMouseLeave}
+
+        onInit={setReactFlowInstance}
       >
         <Background variant="dots" gap={GRID_SPACE} size={1} />
         <Controls showInteractive={false} />

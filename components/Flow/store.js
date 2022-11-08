@@ -17,6 +17,8 @@ const useStore = create(
       nodes: [],
       edges: [],
 
+      cursor: null,
+
       init: ({ nodes, edges }) => {
         set({ nodes, edges });
       },
@@ -25,6 +27,10 @@ const useStore = create(
         set({
           nodes: applyNodeChanges(changes, get().nodes),
         });
+      },
+
+      setCursor: (position) => {
+        set({ cursor: position });
       },
 
       updateNodeStyle: (nodeId, callback) => {
@@ -69,6 +75,9 @@ const useStore = create(
       storageMapping: {
         nodes: true,
         edges: true
+      },
+      presenceMapping: {
+        cursor: true
       }
     }
   )
