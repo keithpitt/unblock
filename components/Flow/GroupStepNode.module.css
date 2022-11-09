@@ -1,0 +1,37 @@
+.container {
+  border: 1px solid #2ECC40;
+
+  width: 100%;
+  height: 100%;
+
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+
+  cursor: default;
+}
+
+.label {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  color: var(--white);
+  transform: translate(0px, -100%);
+  height: 40px;
+  display: flex;
+  align-items: center;
+
+  border-color: #2ECC40;
+  border-style: solid;
+  border-width: 1px 1px 0 1px;
+
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+
+  background: rgba(21, 25, 33, 0.6);
+  padding: 0px 10px;
+  font-size: 14px;
+  white-space: nowrap;
+
+  cursor: grab;
+}

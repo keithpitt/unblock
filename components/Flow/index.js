@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ReactFlow, {
   useNodesState,
   useEdgesState,
@@ -12,17 +12,19 @@ import useStore from './store';
 import styles from './Flow.module.css';
 import SectionNode from './SectionNode';
 import StepNode from './StepNode';
+import GroupStepNode from './GroupStepNode';
 import { GRID_SPACE } from './constants';
 
 // our custom node types
 const nodeTypes = {
   section: SectionNode,
   step: StepNode,
+  groupStep: GroupStepNode,
 };
 
 const defaultEdgeOptions = {
-  animated: true,
-  type: 'smoothstep',
+  // animated: true,
+  // type: 'smoothstep',
 };
 
 const proOptions = {
@@ -33,18 +35,18 @@ const proOptions = {
   hideAttribution: true
 }
 
-function Flow({ roomId, initialEdges, initialNodes }) {
+const fitViewOptions = {
+  maxZoom: 1
+}
+
+function Flow({ roomId, initialNodes, initialEdges }) {
+  const [nodes, setNodes] = useState(initialNodes);
+  const [edges, setEdges] = useState(initialEdges);
+
   const {
     liveblocks: { enterRoom, leaveRoom },
-    init,
-    nodes,
-    edges,
     onNodesChange,
   } = useStore();
-
-  useEffect(() => {
-    init({ edges: initialEdges, nodes: initialNodes });
-  }, [initialEdges, initialNodes]);
 
   useEffect(() => {
     enterRoom(roomId);
@@ -54,9 +56,9 @@ function Flow({ roomId, initialEdges, initialNodes }) {
   return (
     <div className={styles.flow}>
       <ReactFlow
-        nodes={nodes}
-        onNodesChange={onNodesChange}
-        edges={edges}
+        defaultNodes={nodes}
+        // onNodesChange={onNodesChange}
+        defaultEdges={edges}
         nodeTypes={nodeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
         connectionLineType={ConnectionLineType.SmoothStep}
@@ -80,6 +82,10 @@ function Flow({ roomId, initialEdges, initialNodes }) {
         // circles and I don't know how to turn them ofq
         nodesFocusable={false}
         edgesFocusable={false}
+
+        fitView
+        maxZoom={1}
+        fitViewOptions={fitViewOptions}
       >
         <Background variant="dots" gap={GRID_SPACE} size={1} />
         <Controls showInteractive={false} />

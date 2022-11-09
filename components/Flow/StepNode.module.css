@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   height: 40px;
+  width: 100%;
   transition-property: transform;
   transition-duration: 0.2s;
 }
