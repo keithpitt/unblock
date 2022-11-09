@@ -81,6 +81,7 @@ export function generateGraphFromBuildSteps(steps) {
       reactFlowNode.type = "groupStep";
       reactFlowNode.style = estimateDimensionsOfGroupStep(stepEdge);
       reactFlowNode.dragHandle = ".GroupStepDragHandle";
+      reactFlowNode.style.width = 600;
 
       stepEdge.node.steps.edges.forEach(groupStepEdge => {
         // Convert the step into a node
