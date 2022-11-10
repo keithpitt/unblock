@@ -24,9 +24,11 @@ const nodeTypes = {
 
 const defaultEdgeOptions = {
   // animated: true,
-  //type: 'smoothstep'
-  // purple-600
+  type: 'smoothstep',
+  pathOptions: { borderRadius: 40 },
+  // default: purple-600
   // selected: yellow-500
+  style: { stroke: '#4b19d5', strokeWidth: 2 }
 };
 
 const proOptions = {
