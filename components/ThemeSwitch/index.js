@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
-import styles from './ThemeSwitch.module.css';
+import styles from './ThemeSwitch.module.scss';
 
 const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false)

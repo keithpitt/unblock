@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Handle, Position } from 'reactflow';
 import classNames from 'classnames';
 
-import styles from './GroupStepNode.module.css';
+import styles from './GroupStepNode.module.scss';
 
 const GroupStepNode = ({ id, data, sourcePosition, targetPosition, selected }) => {
   return (

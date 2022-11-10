@@ -1,3 +1,5 @@
+import commandStepStyles from 'components/Flow/StepNode.module.scss';
+
 export function magicallyPositionNodes(nodes, edges) {
   const dependencyHash = {}
 
@@ -80,17 +82,16 @@ export function magicallyPositionNodes(nodes, edges) {
     cursor.x = cursor.x + maxWidthForColumn + 60;
   });
 
-  const nodesByParentNode = {};
+  const cursorsByParentNode = {};
 
   nodes.forEach((node) => {
     if (node.parentNode) {
-      if (!nodesByParentNode[node.parentNode]) {
-        nodesByParentNode[node.parentNode] = [];
+      if (!cursorsByParentNode[node.parentNode]) {
+        cursorsByParentNode[node.parentNode] = { x: 20, y: 20 }
       }
 
-      node.position = { x: 20, y: 20 + (nodesByParentNode[node.parentNode].length * 60) };
-
-      nodesByParentNode[node.parentNode].push(node)
+      node.position = { ...cursorsByParentNode[node.parentNode] };
+      cursorsByParentNode[node.parentNode].y += node.style.height + 20;
     }
   });
 

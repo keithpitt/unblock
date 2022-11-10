@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Handle, Position } from 'reactflow';
 import classNames from 'classnames';
 
-import styles from './StepNode.module.css';
+import styles from './StepNode.module.scss';
 
 const StepNode = ({ id, data, x, y, sourcePosition, targetPosition, selected }) => {
   return (

@@ -20,5 +20,8 @@
     "react-moveable": "^0.40.0",
     "reactflow": "^11.2.0",
     "zustand": "^4.1.4"
+  },
+  "devDependencies": {
+    "sass": "^1.56.1"
   }
 }

@@ -1,6 +1,6 @@
 import { memo, useRef, useEffect } from 'react';
 import { makeMoveable, Draggable, Resizable, } from 'react-moveable';
-import styles from './SectionNode.module.css';
+import styles from './SectionNode.module.scss';
 import useStore from './store';
 import { GRID_SPACE } from './constants';
 import { GithubPicker } from 'react-color';

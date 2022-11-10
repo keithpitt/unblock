@@ -1,8 +1,10 @@
+import commandStepStyles from 'components/Flow/StepNode.module.scss';
+
 import { magicallyPositionNodes } from './layout';
 
 const GRID_SPACE = 20;
 
-const COMMAND_STEP_HEIGHT = GRID_SPACE * 2;
+const COMMAND_STEP_HEIGHT = parseInt(commandStepStyles.height);
 const COMMAND_STEP_WIDTH = 200;
 const MARGIN_BETWEEN_NODES = GRID_SPACE;
 

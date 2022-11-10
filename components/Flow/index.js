@@ -9,7 +9,7 @@ import ReactFlow, {
   Controls,
 } from 'reactflow';
 import useStore from './store';
-import styles from './Flow.module.css';
+import styles from './Flow.module.scss';
 import SectionNode from './SectionNode';
 import StepNode from './StepNode';
 import GroupStepNode from './GroupStepNode';

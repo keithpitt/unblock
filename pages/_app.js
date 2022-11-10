@@ -1,5 +1,5 @@
 import { ThemeProvider } from 'next-themes'
-import '../styles/globals.css'
+import '../styles/global.scss'
 import 'reactflow/dist/style.css'
 
 function MyApp({ Component, pageProps }) {
