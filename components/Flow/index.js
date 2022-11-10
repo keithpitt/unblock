@@ -24,7 +24,9 @@ const nodeTypes = {
 
 const defaultEdgeOptions = {
   // animated: true,
-  // type: 'step',
+  //type: 'smoothstep'
+  // purple-600
+  // selected: yellow-500
 };
 
 const proOptions = {

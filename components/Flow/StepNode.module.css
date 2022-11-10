@@ -1,16 +1,24 @@
 .default {
-  background: var(--step-background-color);
-  border: 1px solid var(--lime-500);
+  /* background: var(--slate-900); 60% */
+  background-color: rgba(21,25,33,0.6);
+
+  /* 50% opacity */
+  border: 2px solid var(--green-500);
   font-size: 14px;
-  padding: 0 8px;
-  border-radius: 4px;
+  font-weight: 500;
+  padding: 0 15px 0 10px;
+  border-radius: 8px;
   color: var(--step-color);
   display: flex;
   align-items: center;
-  height: 40px;
+  /* todo: make variable */
+  height: 60px;
   width: 100%;
-  transition-property: transform;
-  transition-duration: 0.2s;
+  transition-property: transform, background-color, box-shadow, color, border-color;
+  transition-duration: 0.1s;
+  backdrop-filter: blur(2px);
+
+  box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.07), 0px 10px 20px rgba(0, 0, 0, 0.05), 0px 13px 18px rgba(0, 0, 0, 0.04), 0px 7px 9px rgba(0, 0, 0, 0.03);
 }
 
 :global(.dragging) .default {
@@ -19,11 +27,12 @@
 }
 
 .selected {
-  box-shadow: 0 0 0 2px var(--lime-500);
+  /* background: var(--slate-900); */
+  background-color: rgba(21,25,33);
 }
 
 [data-theme='dark'] .selected {
-  box-shadow: 1px 1px 43px 10px rgba(204,51,207,0.46);
+  box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.07), 0px 10px 20px rgba(0, 0, 0, 0.05), 0px 13px 18px rgba(0, 0, 0, 0.04), 0px 7px 9px rgba(0, 0, 0, 0.03);
 }
 
 .handle {
@@ -32,4 +41,26 @@
   min-width: 0;
   height: 0;
   min-height: 0;
+}
+
+.elapsed {
+  background: var(--slate-800);
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  border-radius: 8px;
+  padding: 0 8px;
+  transform: translate(0, 50%);
+  font-family: SFMono-Regular,Monaco,Menlo,Consolas,Liberation Mono,Courier,monospace;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--slate-500);
+  transition-property: background-color, color;
+  transition-duration: 0.1s;
+}
+
+.selected .elapsed {
+  background: var(--green-400);
+  color: var(--slate-900);
 }

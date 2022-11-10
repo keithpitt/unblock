@@ -3,6 +3,9 @@
   font-size: 12px;
   cursor: pointer;
 
+  box-shadow: inset 0px 0px 200px 50px rgba(0, 0, 0, 0.9);
+  background-color: var(--black);
+
   --step-background-color: white;
   --step-color: black;
 }
@@ -10,6 +13,11 @@
 [data-theme='dark'] .flow {
   --step-background-color: #141923;
   --step-color: white;
+}
+
+[data-theme='dark'] .flow :global(.react-flow__background) {
+  /* 20% opacity */
+  background: var(--purple-600);
 }
 
 [data-theme='dark'] .flow :global(.react-flow__controls-button) {
