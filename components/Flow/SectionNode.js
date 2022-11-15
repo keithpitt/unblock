@@ -1,19 +1,21 @@
-import { memo, useRef, useEffect } from 'react';
-import { makeMoveable, Draggable, Resizable, } from 'react-moveable';
-import styles from './SectionNode.module.scss';
-import useStore from './store';
-import { GRID_SPACE } from './constants';
-import { GithubPicker } from 'react-color';
+import { memo, useRef, useEffect } from "react";
+import { makeMoveable, Draggable, Resizable } from "react-moveable";
+import styles from "./SectionNode.module.scss";
+import useStore from "./store";
+import { GRID_SPACE } from "./constants";
+import { GithubPicker } from "react-color";
 
 const Moveable = makeMoveable([Draggable, Resizable]);
 
-const SectionNode = ({ id, data, selected, dragging }) => {
+const SectionNode = ({ id, data, selected, dragging, emoji }) => {
   const resizeRef = useRef(null);
   const nodeElementRef = useRef(null);
   const moveableRef = useRef(null);
 
   useEffect(() => {
-    nodeElementRef.current = document.querySelector(`.react-flow__node[data-id="${id}"]`);
+    nodeElementRef.current = document.querySelector(
+      `.react-flow__node[data-id="${id}"]`
+    );
   }, [id]);
 
   useEffect(() => {
@@ -32,31 +34,34 @@ const SectionNode = ({ id, data, selected, dragging }) => {
     }
 
     event.delta[0] && (nodeElementRef.current.style.width = `${event.width}px`);
-    event.delta[1] && (nodeElementRef.current.style.height = `${event.height}px`);
+    event.delta[1] &&
+      (nodeElementRef.current.style.height = `${event.height}px`);
 
     updateNodePosition(id, ({ position }) => {
       return {
         x: event.direction[0] === -1 ? position.x - event.delta[0] : position.x,
         y: event.direction[1] === -1 ? position.y - event.delta[1] : position.y,
-      }
+      };
     });
   };
 
   const onResizeEnd = (event) => {
-    if (!nodeElementRef.current) { return; }
+    if (!nodeElementRef.current) {
+      return;
+    }
 
     updateNodeStyle(id, ({ style }) => {
       return {
         ...style,
         width: nodeElementRef.current.style.width,
         height: nodeElementRef.current.style.height,
-      }
+      };
     });
-  }
+  };
 
   const onColorChange = (event) => {
     updateNodeData(id, ({ data }) => {
-      return { color: event.hex }
+      return { color: event.hex };
     });
   };
 
@@ -76,10 +81,14 @@ const SectionNode = ({ id, data, selected, dragging }) => {
         throttleResize={GRID_SPACE}
       />
 
-      <div className={styles.container} ref={resizeRef} style={{backgroundColor: data.color}}>
+      <div
+        className={styles.container}
+        ref={resizeRef}
+        style={{ backgroundColor: data.color }}
+      >
         <div
           className={styles.toolbar}
-          style={{display: (selected && !dragging ? 'block' : 'none')}}
+          style={{ display: selected && !dragging ? "block" : "none" }}
         >
           <button>Color</button>
           <div className={styles.colorPicker}>
