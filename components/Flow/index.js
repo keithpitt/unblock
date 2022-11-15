@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import ReactFlow, {
   useNodesState,
   useEdgesState,
@@ -7,13 +7,13 @@ import ReactFlow, {
   ConnectionLineType,
   Background,
   Controls,
-} from 'reactflow';
-import useStore from './store';
-import styles from './Flow.module.scss';
-import SectionNode from './SectionNode';
-import StepNode from './StepNode';
-import GroupStepNode from './GroupStepNode';
-import { GRID_SPACE } from './constants';
+} from "reactflow";
+import useStore from "./store";
+import styles from "./Flow.module.scss";
+import SectionNode from "./SectionNode";
+import StepNode from "./StepNode";
+import GroupStepNode from "./GroupStepNode";
+import { GRID_SPACE } from "./constants";
 
 // our custom node types
 const nodeTypes = {
@@ -24,24 +24,24 @@ const nodeTypes = {
 
 const defaultEdgeOptions = {
   // animated: true,
-  type: 'smoothstep',
+  type: "smoothstep",
   pathOptions: { borderRadius: 40 },
   // default: purple-600
   // selected: yellow-500
-  style: { stroke: '#4b19d5', strokeWidth: 2 }
+  style: { stroke: "#4b19d5", strokeWidth: 2 },
 };
 
 const proOptions = {
   // passing in the account property will enable hiding the attribution
-  account: 'paid-pro',
+  account: "paid-pro",
 
   // in combination with the account property, hideAttribution: true will remove the attribution
-  hideAttribution: true
-}
+  hideAttribution: true,
+};
 
 const fitViewOptions = {
-  maxZoom: 1
-}
+  maxZoom: 1,
+};
 
 function Flow({ roomId, initialNodes, initialEdges }) {
   const [nodes, setNodes] = useState(initialNodes);
@@ -66,27 +66,20 @@ function Flow({ roomId, initialNodes, initialEdges }) {
         nodeTypes={nodeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
         connectionLineType={ConnectionLineType.SmoothStep}
-
         // Only drag when space bar is pressed
-        panOnDrag={useKeyPress('Space')}
-
+        panOnDrag={useKeyPress("Space")}
         // Pan on scroll wheel
         panOnScroll
-
         proOptions={proOptions}
-
         // Snap dragging to our grid
         snapToGrid
         snapGrid={[GRID_SPACE, GRID_SPACE]}
-
         // Don't allow new connections to be made
         nodesConnectable={false}
-
         // Turn off tab to focus (for now). Handles are showing up as little blue
         // circles and I don't know how to turn them ofq
         nodesFocusable={false}
         edgesFocusable={false}
-
         fitView
         maxZoom={1}
         fitViewOptions={fitViewOptions}

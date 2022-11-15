@@ -1,13 +1,13 @@
 @use "sass:color";
 
-@import 'styles/variables';
+@import "styles/variables";
 
 $height: $grid-size * 3;
 
 .default {
-  background-color: rgba($slate-900, 60%);
-  border: 2px solid rgba($green-500, 50%);
-  color: $slate-500;
+  background-color: rgba($slate-900, 10%);
+  border: 2px solid rgba($green-700, 50%);
+  color: $slate-900;
   font-size: 14px;
   font-weight: 500;
   padding: 0 15px 0 10px;
@@ -16,22 +16,17 @@ $height: $grid-size * 3;
   align-items: center;
   height: $height;
   width: 100%;
-  transition-property: transform, background-color, box-shadow, color, border-color;
+  transition-property: transform, background-color, box-shadow, color,
+    border-color;
   transition-duration: 0.1s;
   backdrop-filter: blur(2px);
-  box-shadow: 0px 20px 20px rgb(0 0 0 / 7%), 0px 10px 20px rgb(0 0 0 / 5%), 0px 13px 18px rgb(0 0 0 / 4%), 0px 7px 9px rgb(0 0 0 / 3%);
+  box-shadow: 0px 20px 20px rgb(0 0 0 / 7%), 0px 10px 20px rgb(0 0 0 / 5%),
+    0px 13px 18px rgb(0 0 0 / 4%), 0px 7px 9px rgb(0 0 0 / 3%);
 }
 
 :global(.dragging) .default {
   /* Making it a bit bigger when dragging is nice and fun, but needs more tweaking */
   /* transform: scale(1.5) translate(0px,0px); */
-}
-
-[data-theme='dark'] .selected {
-  background-color: $slate-900;
-  border-color: $green-500;
-  color: $base-0;
-  box-shadow: 0px 22px 50px 5px rgb(45 255 67 / 20%), 0px 12px 20px rgb(45 255 67 / 15%), 0px 7px 10px rgb(45 255 67 / 15%), 0px 5px 4px rgb(45 255 67 / 5%)
 }
 
 .handle {
@@ -43,21 +38,24 @@ $height: $grid-size * 3;
 }
 
 .elapsed {
-  background: $slate-800;
+  background: $slate-100;
   position: absolute;
   bottom: 0;
   left: 5px;
   border-radius: 10px;
   padding: 0 8px;
   transform: translate(0, 50%);
-  font-family: SFMono-Regular,Monaco,Menlo,Consolas,Liberation Mono,Courier,monospace;
+  font-family: SFMono-Regular, Monaco, Menlo, Consolas, Liberation Mono, Courier,
+    monospace;
   font-size: 11px;
   font-weight: 500;
   line-height: $grid-size;
-  color: $slate-500;
+  color: $slate-900;
   transition-property: background-color, color;
   transition-duration: 0.1s;
-  box-shadow: 0px 0px 0px 1px rgb(0 0 0 / 10%), 0px 20px 20px rgb(0 0 0 / 7%), 0px 10px 20px rgb(0 0 0 / 5%), 0px 13px 18px rgb(0 0 0 / 4%), 0px 7px 9px rgb(0 0 0 / 3%)
+  box-shadow: 0px 0px 0px 1px rgb(0 0 0 / 10%), 0px 20px 20px rgb(0 0 0 / 7%),
+    0px 10px 20px rgb(0 0 0 / 5%), 0px 13px 18px rgb(0 0 0 / 4%),
+    0px 7px 9px rgb(0 0 0 / 3%);
 }
 
 .selected .elapsed {
@@ -67,4 +65,30 @@ $height: $grid-size * 3;
 
 :export {
   height: $height;
+}
+
+[data-theme="dark"] {
+  .default {
+    background-color: rgba($slate-900, 60%);
+    border: 2px solid rgba($green-500, 50%);
+    color: $slate-500;
+    box-shadow: 0px 20px 20px rgb(0 0 0 / 7%), 0px 10px 20px rgb(0 0 0 / 5%),
+      0px 13px 18px rgb(0 0 0 / 4%), 0px 7px 9px rgb(0 0 0 / 3%);
+  }
+  .selected {
+    background-color: $slate-900;
+    border-color: $green-500;
+    color: $base-0;
+    box-shadow: 0px 22px 50px 5px rgb(45 255 67 / 20%),
+      0px 12px 20px rgb(45 255 67 / 15%), 0px 7px 10px rgb(45 255 67 / 15%),
+      0px 5px 4px rgb(45 255 67 / 5%);
+  }
+  .elapsed {
+    color: $slate-500;
+    background: $slate-800;
+  }
+  .selected .elapsed {
+    background: $green-400;
+    color: $slate-900;
+  }
 }

@@ -1,26 +1,27 @@
 @use "sass:color";
 
-@import 'styles/variables';
+@import "styles/variables";
 
 .flow {
   flex-grow: 1;
   font-size: 12px;
   cursor: pointer;
 
-  box-shadow: inset 0px 0px 200px 50px rgba(0, 0, 0, 0.9);
-
   /* ReactFlow always shows a grabby hand by default, so let's not do that unless
    * you're trying to drag the canvas around */
-  :global(.react-flow__pane) { cursor: default; }
-  :global(.react-flow__pane.dragging) { cursor: grabbing; }
+  :global(.react-flow__pane) {
+    cursor: default;
+  }
+  :global(.react-flow__pane.dragging) {
+    cursor: grabbing;
+  }
 }
 
-[data-theme='dark'] .flow {
+[data-theme="dark"] .flow {
   background: rgba($purple-600, 20%);
-
+  box-shadow: inset 0px 0px 200px 50px rgba(0, 0, 0, 0.9);
   :global(.react-flow__controls-button) {
     background: $slate-800;
     border-bottom: 0;
   }
 }
-
