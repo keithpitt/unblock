@@ -15,8 +15,11 @@
   :global(.react-flow__pane.dragging) {
     cursor: grabbing;
   }
-  :global(.react-flow__background svg) {
-    color: rgba($slate-800, 20%);
+  :global(.react-flow__background) {
+    color: rgba($slate-800, 50%);
+  }
+  :global(.react-flow__edge) {
+    color: $slate-500;
   }
 }
 
@@ -49,6 +52,10 @@
     }
     :global(.react-flow__background) {
       color: rgba($purple-600, 100%);
+      opacity: 1;
+    }
+    :global(.react-flow__edge) {
+      color: $purple-600;
     }
   }
   .controls {

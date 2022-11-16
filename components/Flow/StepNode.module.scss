@@ -2,7 +2,7 @@
 
 @import "styles/variables";
 
-$height: $grid-size * 3;
+$height: 46px;
 
 .default {
   background-color: rgba($base-0, 100%);
@@ -17,12 +17,19 @@ $height: $grid-size * 3;
   align-items: center;
   height: $height;
   width: 100%;
+  box-sizing: border-box;
   transition-property: transform, background-color, box-shadow, color,
     border-color;
   transition-duration: 0.1s;
   backdrop-filter: blur(2px);
-  box-shadow: 0px 20px 20px rgb(0 0 0 / 7%), 0px 10px 20px rgb(0 0 0 / 5%),
-    0px 13px 18px rgb(0 0 0 / 4%), 0px 7px 9px rgb(0 0 0 / 3%);
+  box-shadow: 0px 0px 0px 0 rgba(0, 190, 19, 0);
+  position: relative;
+}
+
+.selected {
+  color: $charcoal-800;
+  border: 2px solid $green-500;
+  box-shadow: 0px 0px 0px 4px rgba(0, 190, 19, 0.2);
 }
 
 :global(.dragging) .default {
@@ -42,26 +49,36 @@ $height: $grid-size * 3;
   background: $slate-100;
   position: absolute;
   bottom: 0;
-  left: 5px;
-  border-radius: 10px;
-  padding: 0 8px;
-  transform: translate(0, 50%);
+  left: -2px;
+  border-radius: 0 0 4px 4px;
+  padding: 0 8px 0;
+  transform: translate(0, 100%);
   font-family: SFMono-Regular, Monaco, Menlo, Consolas, Liberation Mono, Courier,
     monospace;
   font-size: 11px;
   font-weight: 500;
   line-height: $grid-size;
   color: $slate-900;
-  transition-property: background-color, color;
+  transition-property: background-color, color, opacity;
   transition-duration: 0.1s;
-  box-shadow: 0px 0px 0px 1px rgb(0 0 0 / 10%), 0px 20px 20px rgb(0 0 0 / 7%),
-    0px 10px 20px rgb(0 0 0 / 5%), 0px 13px 18px rgb(0 0 0 / 4%),
-    0px 7px 9px rgb(0 0 0 / 3%);
+  opacity: 0;
+  box-sizing: border-box;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 5px;
+    height: 8px;
+    top: -8px;
+    left: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='5' height='8' viewBox='0 0 5 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M2 0H0V8H5V7.87399C3.27478 7.42996 2 5.86383 2 4V0Z' fill='%2300BE13'/%3E%3C/svg%3E%0A");
+  }
 }
 
 .selected .elapsed {
-  background: $green-400;
+  background: $green-500;
   color: $slate-900;
+  opacity: 1;
 }
 
 :export {
@@ -89,7 +106,7 @@ $height: $grid-size * 3;
     background: $slate-800;
   }
   .selected .elapsed {
-    background: $green-400;
+    background: $green-500;
     color: $slate-900;
   }
 }
