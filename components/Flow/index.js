@@ -90,7 +90,11 @@ function Flow({ roomId, initialNodes, initialEdges }) {
           size={1}
           color="currentColor"
         />
-        <Controls showInteractive={false} />
+        <Controls
+          showInteractive={false}
+          position="top-left"
+          className={styles.controls}
+        />
       </ReactFlow>
     </div>
   );
