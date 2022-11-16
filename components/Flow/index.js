@@ -47,44 +47,39 @@ const fitViewOptions = {
 };
 
 const Logo = () => (
-  <svg
-    width="28"
-    height="19"
-    viewBox="0 0 28 19"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    style={{
-      position: "absolute",
-      top: "24px",
-      left: "50%",
-      transform: "translateX(-50%);",
-      zIndex: 1000,
-    }}
-  >
-    <g clip-path="url(#clip0_76_31873)">
-      <path
-        d="M0 0V4.66667V9.33333L9.33333 14V9.33333V4.66667L0 0Z"
-        fill="#30F2A2"
-      />
-      <path
-        d="M18.6667 0V4.66667V9.33333L28.0001 4.66667L18.6667 0Z"
-        fill="#30F2A2"
-      />
-      <path
-        d="M18.667 9.33333V14V18.6667L28.0003 14V9.33333V4.66667L18.667 9.33333Z"
-        fill="#14CC80"
-      />
-      <path
-        d="M9.3335 4.66667V9.33333V14L18.6668 9.33333V4.66667V0L9.3335 4.66667Z"
-        fill="#14CC80"
-      />
-    </g>
-    <defs>
-      <clipPath id="clip0_76_31873">
-        <rect width="28" height="18.6667" />
-      </clipPath>
-    </defs>
-  </svg>
+  <div className={styles.logo}>
+    <svg
+      width="28"
+      height="19"
+      viewBox="0 0 28 19"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clip-path="url(#clip0_76_31873)">
+        <path
+          d="M0 0V4.66667V9.33333L9.33333 14V9.33333V4.66667L0 0Z"
+          fill="#30F2A2"
+        />
+        <path
+          d="M18.6667 0V4.66667V9.33333L28.0001 4.66667L18.6667 0Z"
+          fill="#30F2A2"
+        />
+        <path
+          d="M18.667 9.33333V14V18.6667L28.0003 14V9.33333V4.66667L18.667 9.33333Z"
+          fill="#14CC80"
+        />
+        <path
+          d="M9.3335 4.66667V9.33333V14L18.6668 9.33333V4.66667V0L9.3335 4.66667Z"
+          fill="#14CC80"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_76_31873">
+          <rect width="28" height="18.6667" />
+        </clipPath>
+      </defs>
+    </svg>
+  </div>
 );
 
 function Flow({ roomId, initialNodes, initialEdges }) {

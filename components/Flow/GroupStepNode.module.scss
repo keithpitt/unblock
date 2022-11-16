@@ -50,13 +50,6 @@
 }
 
 [data-theme="dark"] {
-  .label {
-    background: rgba($purple-600, 100%);
-    color: $slate-500;
-    svg {
-      color: rgba($purple-600, 100%);
-    }
-  }
   .container {
     border: 2px solid rgba($purple-600, 100%);
     background: rgba($purple-600, 10%);

@@ -23,6 +23,18 @@
   }
 }
 
+.logo {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 8px 8px 4px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+}
+
 .controls {
   margin: 20px;
   border-radius: 10px;
@@ -39,10 +51,17 @@
     width: 24px;
     height: 24px;
     padding: 8px;
+    background: $base-0;
+    &:hover {
+      background: $gray-200;
+    }
   }
 }
 
 [data-theme="dark"] {
+  .logo {
+    background-color: rgba($slate-900, 20%);
+  }
   .flow {
     background: rgba($purple-600, 20%);
     box-shadow: inset 0px 0px 200px 50px rgba(0, 0, 0, 0.9);
@@ -63,6 +82,12 @@
     svg {
       stroke: $base-0;
       fill: $base-0;
+    }
+    button {
+      background: $slate-800;
+      &:hover {
+        background: $slate-900;
+      }
     }
   }
 }
