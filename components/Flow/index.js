@@ -13,6 +13,7 @@ import styles from "./Flow.module.scss";
 import SectionNode from "./SectionNode";
 import StepNode from "./StepNode";
 import GroupStepNode from "./GroupStepNode";
+import Toolbar from "./Toolbar";
 import { GRID_SPACE } from "./constants";
 
 // our custom node types
@@ -136,6 +137,7 @@ function Flow({ roomId, initialNodes, initialEdges }) {
           position="top-left"
           className={styles.controls}
         />
+        <Toolbar />
       </ReactFlow>
     </div>
   );
