@@ -1,14 +1,15 @@
 @use "sass:color";
 
-@import 'styles/variables';
+@import "styles/variables";
 
-$height: $grid-size * 3;
+$height: 46px;
 
 .default {
-  background-color: rgba($slate-900, 60%);
-  border: 2px solid rgba($green-500, 50%);
-  color: $slate-500;
-  font-size: 14px;
+  background-color: rgba($base-0, 100%);
+  border: 2px solid rgba($green-400, 100%);
+  color: $charcoal-700;
+  font-size: 13px;
+  letter-spacing: 0.25px;
   font-weight: 500;
   padding: 0 15px 0 10px;
   border-radius: 8px;
@@ -16,22 +17,24 @@ $height: $grid-size * 3;
   align-items: center;
   height: $height;
   width: 100%;
-  transition-property: transform, background-color, box-shadow, color, border-color;
+  box-sizing: border-box;
+  transition-property: transform, background-color, box-shadow, color,
+    border-color;
   transition-duration: 0.1s;
   backdrop-filter: blur(2px);
-  box-shadow: 0px 20px 20px rgb(0 0 0 / 7%), 0px 10px 20px rgb(0 0 0 / 5%), 0px 13px 18px rgb(0 0 0 / 4%), 0px 7px 9px rgb(0 0 0 / 3%);
+  box-shadow: 0px 0px 0px 0 rgba(0, 190, 19, 0);
+  position: relative;
+}
+
+.selected {
+  color: $charcoal-800;
+  border: 2px solid $green-500;
+  box-shadow: 0px 0px 0px 4px rgba(0, 190, 19, 0.2);
 }
 
 :global(.dragging) .default {
   /* Making it a bit bigger when dragging is nice and fun, but needs more tweaking */
   /* transform: scale(1.5) translate(0px,0px); */
-}
-
-[data-theme='dark'] .selected {
-  background-color: $slate-900;
-  border-color: $green-500;
-  color: $base-0;
-  box-shadow: 0px 22px 50px 5px rgb(45 255 67 / 20%), 0px 12px 20px rgb(45 255 67 / 15%), 0px 7px 10px rgb(45 255 67 / 15%), 0px 5px 4px rgb(45 255 67 / 5%)
 }
 
 .handle {
@@ -43,28 +46,67 @@ $height: $grid-size * 3;
 }
 
 .elapsed {
-  background: $slate-800;
+  background: $slate-100;
   position: absolute;
   bottom: 0;
-  left: 5px;
-  border-radius: 10px;
-  padding: 0 8px;
-  transform: translate(0, 50%);
-  font-family: SFMono-Regular,Monaco,Menlo,Consolas,Liberation Mono,Courier,monospace;
+  left: -2px;
+  border-radius: 0 0 4px 4px;
+  padding: 0 8px 0;
+  transform: translate(0, 100%);
+  font-family: SFMono-Regular, Monaco, Menlo, Consolas, Liberation Mono, Courier,
+    monospace;
   font-size: 11px;
   font-weight: 500;
   line-height: $grid-size;
-  color: $slate-500;
-  transition-property: background-color, color;
+  color: $slate-900;
+  transition-property: background-color, color, opacity;
   transition-duration: 0.1s;
-  box-shadow: 0px 0px 0px 1px rgb(0 0 0 / 10%), 0px 20px 20px rgb(0 0 0 / 7%), 0px 10px 20px rgb(0 0 0 / 5%), 0px 13px 18px rgb(0 0 0 / 4%), 0px 7px 9px rgb(0 0 0 / 3%)
+  opacity: 0;
+  box-sizing: border-box;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 5px;
+    height: 8px;
+    top: -8px;
+    left: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='5' height='8' viewBox='0 0 5 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M2 0H0V8H5V7.87399C3.27478 7.42996 2 5.86383 2 4V0Z' fill='%2300BE13'/%3E%3C/svg%3E%0A");
+  }
 }
 
 .selected .elapsed {
-  background: $green-400;
+  background: $green-500;
   color: $slate-900;
+  opacity: 1;
 }
 
 :export {
   height: $height;
+}
+
+[data-theme="dark"] {
+  .default {
+    background-color: rgba($slate-900, 60%);
+    border: 2px solid rgba($green-500, 50%);
+    color: $slate-500;
+    box-shadow: 0px 20px 20px rgb(0 0 0 / 7%), 0px 10px 20px rgb(0 0 0 / 5%),
+      0px 13px 18px rgb(0 0 0 / 4%), 0px 7px 9px rgb(0 0 0 / 3%);
+  }
+  .selected {
+    background-color: $slate-900;
+    border-color: $green-500;
+    color: $base-0;
+    box-shadow: 0px 22px 50px 5px rgb(45 255 67 / 20%),
+      0px 12px 20px rgb(45 255 67 / 15%), 0px 7px 10px rgb(45 255 67 / 15%),
+      0px 5px 4px rgb(45 255 67 / 5%);
+  }
+  .elapsed {
+    color: $slate-500;
+    background: $slate-800;
+  }
+  .selected .elapsed {
+    background: $green-500;
+    color: $slate-900;
+  }
 }
