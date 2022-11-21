@@ -30,15 +30,23 @@
   color: #202632;
 }
 
+.icon:not(.activeicon):hover {
+  background: $gray-100;
+}
+
 .activeicon {
   background: linear-gradient(0deg, #4B19D5 0%, #7939FF 100%);
   border-radius: 8px;
   color: #fff;
 }
 
+
 [data-theme="dark"] .container {
   background: $slate-800;
   .icon {
     color: $base-0;
+  }
+  .icon:not(.activeicon):hover {
+    background: $slate-900;
   }
 }

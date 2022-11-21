@@ -5,7 +5,6 @@ import React, { useEffect } from "react";
 import { EmojiContext } from "../context/EmojiContext";
 
 import Flow from "components/Flow";
-import ThemeSwitch from "components/ThemeSwitch";
 
 import { generateGraphFromBuildSteps } from "utils/graph";
 
@@ -432,7 +431,6 @@ export default function Home({ roomId, build, emoji }) {
         <title>🎮</title>
       </Head>
       <EmojiContext.Provider value={emoji}>
-        <ThemeSwitch />
         <Flow roomId={roomId} initialNodes={nodes} initialEdges={edges} />
       </EmojiContext.Provider>
     </div>
