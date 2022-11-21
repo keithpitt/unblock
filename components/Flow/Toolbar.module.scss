@@ -12,22 +12,14 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
-}
-
-.main {
   display: flex;
   gap: 8px;
 }
-
-.theme {
-  display: flex;
-  gap: 8px;
-}
-
 
 .icon {
   border-radius: 8px;
   color: #202632;
+  overflow: visible;
 }
 
 .icon:not(.activeicon):hover {
