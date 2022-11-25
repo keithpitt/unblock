@@ -1,0 +1,228 @@
+{
+  "data": {
+    "build": {
+      "uuid": "018386f3-5666-47fe-a5c8-0c064daf5984",
+      "message": "Merge pull request #133 from buildkite/configure-shows-secret-storage-path\n\nconfigure credential/auth prompts show config path",
+      "steps": {
+        "edges": [
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "018386f3-5665-4b6e-883d-ce3547660b66",
+              "label": ":pipeline:",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "018386f3-6b76-470c-808c-d1425a4f4da8",
+              "label": "Lint",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "018386f3-6b76-4c67-8229-f1a8d39c2042",
+              "label": "Test",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepInput",
+              "uuid": "018386f3-6b77-4976-bea2-eed39206cda4",
+              "label": "[wait]",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "6dd6d4df-3ae4-45c2-a70c-4108a30374b4",
+                      "allow_failure": false,
+                      "key": "018386f3-5665-4b6e-883d-ce3547660b66",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "cef82a66-51a1-41d8-a011-33c1fa2000f5",
+                      "allow_failure": false,
+                      "key": "018386f3-6b76-4c67-8229-f1a8d39c2042",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "214e5917-47d1-4f80-8247-cd60bad818db",
+                      "allow_failure": false,
+                      "key": "018386f3-6b76-470c-808c-d1425a4f4da8",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "018386f3-6b77-42d0-a789-864992ada232",
+              "label": "Test with Local Agent",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "8f0ca4a0-14e1-4ac5-b0f2-e46f55818e53",
+                      "allow_failure": false,
+                      "key": "018386f3-6b77-4976-bea2-eed39206cda4",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepInput",
+              "uuid": "018386f3-6b77-4b4a-b834-f1b1c89c892e",
+              "label": "[wait]",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "52f01e08-4298-4de3-af89-ed31b2c1eda5",
+                      "allow_failure": false,
+                      "key": "018386f3-5665-4b6e-883d-ce3547660b66",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "8075a6b5-5234-4b1a-abdd-67e3b38d608d",
+                      "allow_failure": false,
+                      "key": "018386f3-6b77-42d0-a789-864992ada232",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "29f40697-05ec-452d-a2e8-57d5be2623d8",
+                      "allow_failure": false,
+                      "key": "018386f3-6b77-4976-bea2-eed39206cda4",
+                      "source": "CHAIN"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "018386f3-6b77-4ef3-96f1-93c302bb2721",
+              "label": ":golang:",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "def38642-33cb-43a1-9b1f-feb708f23763",
+                      "allow_failure": false,
+                      "key": "018386f3-6b77-4b4a-b834-f1b1c89c892e",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "018386f4-ff7f-4878-8b5a-65f4e275a072",
+              "label": ":go: 1.16 :darwin: amd64",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "018386f4-ff80-4db4-92f4-15d05f999be9",
+              "label": ":go: 1.16 :darwin: arm64",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "018386f4-ff80-4d74-a91e-b8cfb5f9c2e7",
+              "label": ":go: 1.16 :linux: amd64",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "018386f4-ff80-4304-96fe-1eaa9e7e8181",
+              "label": ":go: 1.16 :linux: arm64",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "018386f4-ff81-41a9-9975-400375e2d178",
+              "label": ":go: 1.16 :windows: amd64",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
