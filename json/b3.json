@@ -1,0 +1,570 @@
+{
+  "data": {
+    "build": {
+      "uuid": "0184ae74-b58f-437e-ba05-54dfdbbb64d1",
+      "message": "Scheduled daily clean build",
+      "steps": {
+        "edges": [
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae74-b58a-4082-ae13-9cb2751bdaff",
+              "label": "Please ask a contributor to unblock the tests",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-4325-4e93-99a8-b1267286f1ef",
+              "label": ":linux: linters.sh",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-4326-480c-b6ff-f9628751f876",
+              "label": ":mac: test-static-sanitized.sh (master only)",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-4329-4f26-9e4c-d7ff868549d1",
+              "label": ":linux: test-static-sanitized.sh",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432a-465b-9b58-df3dc10e09ef",
+              "label": ":linux: test-compiler.sh",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432a-45db-b1df-d6cc47de4751",
+              "label": ":linux: test-vscode-extension.sh",
+              "key": null,
+              "dependencies": {
+                "edges": [
+
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepInput",
+              "uuid": "0184ae75-432a-4b2c-bcc2-56f9f15f94d8",
+              "label": "[wait]",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "5e023332-ad7b-486f-b730-300ad4bc4822",
+                      "allow_failure": false,
+                      "key": "0184ae74-b58a-4082-ae13-9cb2751bdaff",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "19c64777-1f50-4259-964e-15a46773dc39",
+                      "allow_failure": false,
+                      "key": "0184ae75-432a-45db-b1df-d6cc47de4751",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "a24a66ed-a979-4a62-95e3-3ccf43eb66ef",
+                      "allow_failure": false,
+                      "key": "0184ae75-432a-465b-9b58-df3dc10e09ef",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "1f617981-4f88-4f3c-a9f3-b84f78ef15eb",
+                      "allow_failure": false,
+                      "key": "0184ae75-4329-4f26-9e4c-d7ff868549d1",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "1b394fd0-8394-4e3d-a7f6-5227e745619b",
+                      "allow_failure": false,
+                      "key": "0184ae75-4326-480c-b6ff-f9628751f876",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "f080bc91-56d7-49ea-a590-e9c4fc06f972",
+                      "allow_failure": false,
+                      "key": "0184ae75-4325-4e93-99a8-b1267286f1ef",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432b-489e-95b5-9313d63fe2c4",
+              "label": ":linux: build-website.sh",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "ac925b8f-2cfa-4e33-9900-e8c2dede76c0",
+                      "allow_failure": false,
+                      "key": "0184ae75-432a-4b2c-bcc2-56f9f15f94d8",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432b-4799-82a1-d2c64cc744ac",
+              "label": ":linux: build-sorbet-runtime.sh",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "a5370647-dc0f-43a1-ab21-9d18a0dd7b49",
+                      "allow_failure": false,
+                      "key": "0184ae75-432a-4b2c-bcc2-56f9f15f94d8",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432b-4db3-ba34-29e0fd0d00ba",
+              "label": ":mac: build-static-release.sh (master only)",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "1dc28d4f-e40e-459d-997c-e1f31b94c0fd",
+                      "allow_failure": false,
+                      "key": "0184ae75-432a-4b2c-bcc2-56f9f15f94d8",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432d-4fc8-9998-c402d8b08d82",
+              "label": ":linux: build-static-release.sh",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "25808032-0364-4071-8aa8-52f3fd9ba22a",
+                      "allow_failure": false,
+                      "key": "0184ae75-432a-4b2c-bcc2-56f9f15f94d8",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432d-4d0c-97df-e98d5018cc98",
+              "label": ":linux: build-sorbet-static-and-runtime.sh",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "694fe10c-27a4-4431-950d-8ee44275c29a",
+                      "allow_failure": false,
+                      "key": "0184ae75-432a-4b2c-bcc2-56f9f15f94d8",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432d-4792-8ed3-06a9944d1614",
+              "label": ":linux: build-emscripten.sh",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "4130b898-5882-4542-beb0-3557dca91790",
+                      "allow_failure": false,
+                      "key": "0184ae75-432a-4b2c-bcc2-56f9f15f94d8",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432e-44a3-9d2a-272f90bf6b4e",
+              "label": ":linux: build-vscode-extension.sh",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "d2d6b5be-d01f-4f58-9a1c-0905b67e620f",
+                      "allow_failure": false,
+                      "key": "0184ae75-432a-4b2c-bcc2-56f9f15f94d8",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepInput",
+              "uuid": "0184ae75-432e-47ba-ae5c-1babaf722ae5",
+              "label": "[wait]",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "21a5770e-8196-461c-a02f-edae55d34c63",
+                      "allow_failure": false,
+                      "key": "0184ae74-b58a-4082-ae13-9cb2751bdaff",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "b8084c86-a014-4c20-ad0a-6e209307a75f",
+                      "allow_failure": false,
+                      "key": "0184ae75-432e-44a3-9d2a-272f90bf6b4e",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "2322e288-6cff-4e0f-a1f2-c76c52febd13",
+                      "allow_failure": false,
+                      "key": "0184ae75-432d-4792-8ed3-06a9944d1614",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "ed543964-fb36-4580-93bc-f7da86a059bd",
+                      "allow_failure": false,
+                      "key": "0184ae75-432d-4d0c-97df-e98d5018cc98",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "f1f61628-f965-4797-9248-c544f66eb76e",
+                      "allow_failure": false,
+                      "key": "0184ae75-432d-4fc8-9998-c402d8b08d82",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "288df116-a213-49ee-8b72-db85b082b320",
+                      "allow_failure": false,
+                      "key": "0184ae75-432b-4db3-ba34-29e0fd0d00ba",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "b5a37529-c0a6-4898-9e5a-bb0b9aebfdb4",
+                      "allow_failure": false,
+                      "key": "0184ae75-432b-4799-82a1-d2c64cc744ac",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "31422c52-d208-4e4b-958c-b83eb3a9e307",
+                      "allow_failure": false,
+                      "key": "0184ae75-432b-489e-95b5-9313d63fe2c4",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "2651a031-0dc5-4517-a415-cf0c1812b041",
+                      "allow_failure": false,
+                      "key": "0184ae75-432a-4b2c-bcc2-56f9f15f94d8",
+                      "source": "CHAIN"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432e-4708-b6ed-dd47f4134167",
+              "label": ":linux: build-static-release-java.sh (master only)",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "86aa4893-722b-4a48-a941-a36a3f36f437",
+                      "allow_failure": false,
+                      "key": "0184ae75-432e-47ba-ae5c-1babaf722ae5",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepInput",
+              "uuid": "0184ae75-432f-41d4-a35b-ee6241fe2985",
+              "label": "[wait]",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "67f20102-4a69-420c-9874-74309f1d61af",
+                      "allow_failure": false,
+                      "key": "0184ae74-b58a-4082-ae13-9cb2751bdaff",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "9525ccd7-be91-477a-80d2-e0ad274b7693",
+                      "allow_failure": false,
+                      "key": "0184ae75-432e-4708-b6ed-dd47f4134167",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "840854e3-e6bf-402c-9fbe-f62ad147498d",
+                      "allow_failure": false,
+                      "key": "0184ae75-432e-47ba-ae5c-1babaf722ae5",
+                      "source": "CHAIN"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432f-4928-8092-60ff86e1f7a2",
+              "label": ":linux: publish.sh",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "9b7526c0-2cd9-4baa-8577-422dfddea6af",
+                      "allow_failure": false,
+                      "key": "0184ae75-432f-41d4-a35b-ee6241fe2985",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepInput",
+              "uuid": "0184ae75-432f-4efa-84e7-ed7bc5b72e22",
+              "label": "[wait]",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "43784366-c593-4c56-af9d-9e8bdca03813",
+                      "allow_failure": false,
+                      "key": "0184ae74-b58a-4082-ae13-9cb2751bdaff",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "3d47a026-dc85-4fd3-9e7f-b0e3cc367d4b",
+                      "allow_failure": false,
+                      "key": "0184ae75-432f-4928-8092-60ff86e1f7a2",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "a28b3d9e-1020-40cc-a1d8-4ff9e5704cf0",
+                      "allow_failure": false,
+                      "key": "0184ae75-432f-41d4-a35b-ee6241fe2985",
+                      "source": "CHAIN"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432f-45fb-b21b-c168d9986832",
+              "label": "All tests and builds succeeded",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "63dec97e-8676-4b39-9770-8db2135d21ed",
+                      "allow_failure": false,
+                      "key": "0184ae75-432f-4efa-84e7-ed7bc5b72e22",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepCommand",
+              "uuid": "0184ae75-432f-42cf-bc95-71b83b4256c9",
+              "label": ":linux: publish-ruby-gems.sh (non-blocking)",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "16f4036f-2c19-4f3c-bda2-942a853c855a",
+                      "allow_failure": false,
+                      "key": "0184ae75-432f-4efa-84e7-ed7bc5b72e22",
+                      "source": "GATE"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "StepInput",
+              "uuid": "0184ae75-432f-4558-9319-6d07899aca69",
+              "label": "[wait]",
+              "key": null,
+              "dependencies": {
+                "edges": [
+                  {
+                    "node": {
+                      "uuid": "2b6f0c6d-5e19-4f2e-8470-a94f336be843",
+                      "allow_failure": false,
+                      "key": "0184ae74-b58a-4082-ae13-9cb2751bdaff",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "2663adf1-5291-4102-967d-9785b59c4bba",
+                      "allow_failure": false,
+                      "key": "0184ae75-432f-42cf-bc95-71b83b4256c9",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "6f85533a-81e2-4d08-a935-ac561cc68a39",
+                      "allow_failure": false,
+                      "key": "0184ae75-432f-45fb-b21b-c168d9986832",
+                      "source": "GATE"
+                    }
+                  },
+                  {
+                    "node": {
+                      "uuid": "929559a0-af80-47d8-b623-498bec15b05a",
+                      "allow_failure": false,
+                      "key": "0184ae75-432f-4efa-84e7-ed7bc5b72e22",
+                      "source": "CHAIN"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

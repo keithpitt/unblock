@@ -39,7 +39,7 @@ export async function getServerSideProps(context) {
   }
 
   // worst validation ever
-  if (buildSlug != 'default' || buildSlug != 'b1' || buildSlug != 'b2') {
+  if (buildSlug != 'default' || buildSlug != 'b1' || buildSlug != 'b2' || buildSlug != 'b3') {
     buildSlug == 'default';
   }
 
