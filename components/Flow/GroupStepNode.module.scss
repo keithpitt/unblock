@@ -49,6 +49,14 @@
   }
 }
 
+.handle {
+  opacity: 0;
+  width: 0;
+  min-width: 0;
+  height: 0;
+  min-height: 0;
+}
+
 [data-theme="dark"] {
   .container {
     border: 2px solid rgba($purple-600, 100%);
