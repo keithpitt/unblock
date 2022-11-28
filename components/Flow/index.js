@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useTheme } from 'next-themes'
 import ReactFlow, {
   useNodesState,
@@ -116,12 +116,12 @@ const Logo = () => (
 );
 
 function Flow({ roomId, initialNodes, initialEdges }) {
-  const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
-
   const {
+    init,
     liveblocks: { enterRoom, leaveRoom },
     onNodesChange,
+    nodes,
+    edges,
   } = useStore();
 
   useEffect(() => {
@@ -129,13 +129,17 @@ function Flow({ roomId, initialNodes, initialEdges }) {
     return () => leaveRoom(roomId);
   }, [enterRoom, leaveRoom]);
 
+  useEffect(() => {
+    init({ nodes: initialNodes, edges: initialEdges });
+  }, [ initialNodes, initialEdges ]);
+
   return (
     <div className={styles.flow}>
       <Logo />
       <ReactFlow
-        defaultNodes={nodes}
-        // onNodesChange={onNodesChange}
-        defaultEdges={edges}
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
         nodeTypes={nodeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
         connectionLineType={ConnectionLineType.SmoothStep}
@@ -156,7 +160,7 @@ function Flow({ roomId, initialNodes, initialEdges }) {
         fitView
         maxZoom={1}
         fitViewOptions={fitViewOptions}
-        defaultZoom={1}
+        defaultzoom={1}
       >
         <Background
           variant="dots"
