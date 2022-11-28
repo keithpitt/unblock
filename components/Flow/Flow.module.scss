@@ -20,6 +20,9 @@
   }
   :global(.react-flow__edge) {
     color: $slate-500;
+    &:global(.selected) {
+      color: $purple-600;
+    }
   }
 }
 
@@ -79,6 +82,9 @@
     }
     :global(.react-flow__edge) {
       color: $purple-600;
+      &:global(.selected) {
+        color: yellow;
+      }
     }
   }
   .controls {
