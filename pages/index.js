@@ -96,6 +96,7 @@ export async function getServerSideProps(context) {
   const buildResponse = JSON.parse(jsonData);
   const roomId = encodeURIComponent(`${buildSlug}-${version}`);
 
+  console.log(`Looking up storage for room: ${roomId}`);
   const getStorageResponse = await fetch(
     `https://api.liveblocks.io/v2/rooms/${roomId}/storage`,
     {
@@ -107,39 +108,52 @@ export async function getServerSideProps(context) {
   let liveblocksStorage = await getStorageResponse.json();
 
   // Room doesn't exist? Let's create it and fill it with some stuff...
-  if (liveblocksStorage.error == "ROOM_NOT_FOUND") {
-    // Make the room
-    const roomCreateResponse = await fetch(
-      `https://api.liveblocks.io/v2/rooms`,
-      {
-        method: "POST",
-        body: JSON.stringify({ id: roomId, defaultAccesses: ["room:write"] }),
-        headers: {
-          Authorization: `Bearer ${process.env.LIVEBLOCKS_PRIVATE_KEY}`,
-        },
-      }
-    );
-    const roomCreateResponseJSON = await roomCreateResponse.json();
+  if (liveblocksStorage.error) {
+    if (liveblocksStorage.error == "ROOM_NOT_FOUND") {
+      console.log(`${roomId} not found, creating...`);
 
-    // Come up with initial storage
-    const { nodes, edges } = generateGraphFromBuildSteps(buildResponse.data.build.steps);
-    const initialStorage = convertToLiveblocksStorage({ nodes: nodes, edges: edges });
+      // Make the room
+      const roomCreateResponse = await fetch(
+        `https://api.liveblocks.io/v2/rooms`,
+        {
+          method: "POST",
+          body: JSON.stringify({ id: roomId, defaultAccesses: ["room:write"] }),
+          headers: {
+            Authorization: `Bearer ${process.env.LIVEBLOCKS_PRIVATE_KEY}`,
+          },
+        }
+      );
+      const roomCreateResponseJSON = await roomCreateResponse.json();
 
-    // Set initial storage
-    const initialStorageSetResponse = await fetch(
-      `https://api.liveblocks.io/v2/rooms/${roomId}/storage`,
-      {
-        method: "POST",
-        body: JSON.stringify(initialStorage),
-        headers: {
-          Authorization: `Bearer ${process.env.LIVEBLOCKS_PRIVATE_KEY}`,
-        },
-      }
-    );
-    liveblocksStorage = await initialStorageSetResponse.json();
-  };
+      console.log(`Setting up initial storage for ${roomId}`);
 
-  const { edges, nodes } = convertFromLiveblocksStorage(liveblocksStorage);
+      // Come up with initial storage
+      const { nodes, edges } = generateGraphFromBuildSteps(buildResponse.data.build.steps);
+      const initialStorage = convertToLiveblocksStorage({ nodes: nodes, edges: edges });
+
+      // Set initial storage
+      const initialStorageSetResponse = await fetch(
+        `https://api.liveblocks.io/v2/rooms/${roomId}/storage`,
+        {
+          method: "POST",
+          body: JSON.stringify(initialStorage),
+          headers: {
+            Authorization: `Bearer ${process.env.LIVEBLOCKS_PRIVATE_KEY}`,
+          },
+        }
+      );
+      liveblocksStorage = await initialStorageSetResponse.json();
+    } else {
+      throw new Error(`can't get storage with error: ${liveblocksStorage.error}`);
+    }
+  }
+
+  let { edges, nodes } = convertFromLiveblocksStorage(liveblocksStorage);
+
+  // On the off chance that they didn't get set (maybe something went wrong in
+  // the storage bizzo) make sure we return at least some arrays.
+  if (edges == undefined) { edges = []; };
+  if (nodes == undefined) { nodes = []; };
 
   const emoji_res = await fetch(
     `https://api.buildkite.com/v2/organizations/${process.env.BUILDKITE_ORG}/emojis?access_token=${process.env.BUILDKITE_ACCESS_TOKEN}`
