@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { useTheme } from 'next-themes'
 import ReactFlow, {
   useNodesState,
@@ -116,7 +116,10 @@ const Logo = () => (
 );
 
 function Flow({ roomId, initialNodes, initialEdges }) {
+  const wrapperRef = useRef(null);
+
   const [ toolbarMode, setToolbarMode ] = useState('move');
+  const [ reactFlowInstance, setReactFlowInstance ] = useState(null);
 
   const {
     init,
@@ -139,18 +142,24 @@ function Flow({ roomId, initialNodes, initialEdges }) {
   }, [ initialNodes, initialEdges ]);
 
   const onClick = useCallback((event) => {
-    if (toolbarMode == 'section') {
-      addNewNode({ type: 'section', data: { label: prompt("Enter a label") }, position: { x: 0, y: 0 }, style: { height: 100, width: 100 }, zIndex: -1 });
+    if (toolbarMode == 'section' && reactFlowInstance) {
+      const wrapperBounds = wrapperRef.current.getBoundingClientRect();
+      const position = reactFlowInstance.project({ x: event.clientX - wrapperBounds.x, y: event.clientY - wrapperBounds.top })
+      addNewNode({ type: 'section', data: { label: "New Section" }, position: position, style: { height: 200, width: 200 }, zIndex: -1 });
       setToolbarMode('move');
     }
-  }, [toolbarMode]);
+  }, [reactFlowInstance, toolbarMode]);
 
   const onToolbarButtonClick = useCallback((mode) => {
     setToolbarMode(mode);
   }, []);
 
+  const onInit = useCallback((instance) => {
+    setReactFlowInstance(instance);
+  }, []);
+
   return (
-    <div className={styles.flow}>
+    <div ref={wrapperRef} className={styles.flow}>
       <Logo />
       <ReactFlow
         nodes={nodes}
@@ -165,6 +174,7 @@ function Flow({ roomId, initialNodes, initialEdges }) {
         // Pan on scroll wheel
         panOnScroll
         proOptions={proOptions}
+        onInit={onInit}
 
         // Snap dragging to our grid
         snapToGrid
