@@ -40,7 +40,7 @@
 
 [data-theme="dark"] {
   .container {
-    border: 2px solid rgba($slate-500, 100%);
+    border: 2px dashed rgba($slate-500, 100%);
     background: rgba($slate-500, 3%);
     border-radius: 10px;
   }
