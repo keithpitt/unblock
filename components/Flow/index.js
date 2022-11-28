@@ -13,7 +13,9 @@ import ReactFlow, {
 import useStore from "./store";
 import styles from "./Flow.module.scss";
 import SectionNode from "./SectionNode";
+import MediaNode from "./MediaNode";
 import StepNode from "./StepNode";
+import EmojiNode from "./EmojiNode";
 import GroupStepNode from "./GroupStepNode";
 import Toolbar from "./Toolbar";
 import { GRID_SPACE } from "./constants";
@@ -21,8 +23,10 @@ import { GRID_SPACE } from "./constants";
 // our custom node types
 const nodeTypes = {
   section: SectionNode,
+  media: MediaNode,
   step: StepNode,
   groupStep: GroupStepNode,
+  emoji: EmojiNode,
 };
 
 const defaultEdgeOptions = {
@@ -142,13 +146,22 @@ function Flow({ roomId, initialNodes, initialEdges }) {
   }, [ initialNodes, initialEdges ]);
 
   const onClick = useCallback((event) => {
-    if (toolbarMode == 'section' && reactFlowInstance) {
+    if (reactFlowInstance) {
       const wrapperBounds = wrapperRef.current.getBoundingClientRect();
-      const position = reactFlowInstance.project({ x: event.clientX - wrapperBounds.x, y: event.clientY - wrapperBounds.top })
-      addNewNode({ type: 'section', data: { label: "New Section" }, position: position, style: { height: 200, width: 200 }, zIndex: -1 });
+      const position = reactFlowInstance.project({ x: event.clientX - wrapperBounds.x, y: event.clientY - wrapperBounds.top });
+
+      if (toolbarMode == 'section') {
+        addNewNode({ type: 'section', data: { label: "New Section" }, position: position, style: { height: 200, width: 200 }, zIndex: -1 });
+      } else if (toolbarMode == 'media') {
+        addNewNode({ type: 'media', data: { src: prompt("Enter a URL") }, position: position, style: { height: 200, width: 200 }, zIndex: -1 });
+      } else if (toolbarMode == 'emoji') {
+        addNewNode({ type: 'emoji', data: { emoji: prompt("Enter an emoji") }, position: position, style: { height: 30, width: 30 }, zIndex: -1 });
+      }
+
       setToolbarMode('move');
     }
   }, [reactFlowInstance, toolbarMode]);
+
 
   const onToolbarButtonClick = useCallback((mode) => {
     setToolbarMode(mode);

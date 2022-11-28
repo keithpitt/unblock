@@ -82,6 +82,7 @@ const Toolbar = ({mode, onButtonClick}) => (
     <button type="button" onClick={() => onButtonClick('move')}><MoveIcon active={mode == 'move'} /></button>
     <button type="button" onClick={() => onButtonClick('section')}><NewSectionIcon active={mode == 'section'} /></button>
     <button type="button" onClick={() => onButtonClick('emoji')}><EmojiIcon active={mode == 'emoji'} /></button>
+    <button type="button" onClick={() => onButtonClick('media')}><EmojiIcon active={mode == 'media'} /></button>
   </div>
 )
 
