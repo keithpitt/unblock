@@ -124,6 +124,8 @@ function Flow({ roomId, initialNodes, initialEdges }) {
 
   const [ toolbarMode, setToolbarMode ] = useState('move');
   const [ reactFlowInstance, setReactFlowInstance ] = useState(null);
+  const [ viewport, setViewport ] = useState(null);
+  const [ cursorPosition, setCursorPosition ] = useState(null);
 
   const {
     init,
@@ -160,7 +162,7 @@ function Flow({ roomId, initialNodes, initialEdges }) {
 
       setToolbarMode('move');
     }
-  }, [reactFlowInstance, toolbarMode]);
+  }, [reactFlowInstance, wrapperRef, toolbarMode]);
 
 
   const onToolbarButtonClick = useCallback((mode) => {
@@ -171,9 +173,36 @@ function Flow({ roomId, initialNodes, initialEdges }) {
     setReactFlowInstance(instance);
   }, []);
 
+  const onMove = useCallback((event, viewport) => {
+    setViewport(viewport);
+  }, []);
+
+  const onPaneMouseMove = useCallback((event) => {
+    if (reactFlowInstance && wrapperRef) {
+      const wrapperBounds = wrapperRef.current.getBoundingClientRect();
+      const position = reactFlowInstance.project({ x: event.clientX - wrapperBounds.x, y: event.clientY - wrapperBounds.top });
+      setCursorPosition(position);
+    }
+  }, [reactFlowInstance, wrapperRef]);
+
+  const cursorViewportStyles = { position: "absolute", width: "100%", height: "100%", top: 0, left: 0, transformOrigin: "0 0" };
+  if (viewport) {
+    cursorViewportStyles.transform = `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`;
+  }
+
+  const cursorStyles = { transform: "translate(0, 0)", position: "absolute" };
+  if (cursorPosition) {
+    cursorStyles.transform = `translate(${cursorPosition.x}px, ${cursorPosition.y}px)`;
+  }
+
   return (
     <div ref={wrapperRef} className={styles.flow}>
       <Logo />
+      <div style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}}>
+        <div style={cursorViewportStyles}>
+          <div style={cursorStyles}>👀</div>
+        </div>
+      </div>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -203,6 +232,8 @@ function Flow({ roomId, initialNodes, initialEdges }) {
         fitViewOptions={fitViewOptions}
         defaultzoom={1}
         onPaneClick={onClick}
+        onMove={onMove}
+        onPaneMouseMove={onPaneMouseMove}
       >
         <Background
           variant="dots"
