@@ -1,0 +1,18 @@
+@use "sass:color";
+
+@import "styles/variables";
+
+.container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: transform 100ms linear;
+  z-index: 30;
+}
+
+.name {
+  transform: translateY(-50%);
+  padding: 8px 10px;
+  color: white;
+  border-radius: 10px;
+}

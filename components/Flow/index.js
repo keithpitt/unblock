@@ -18,6 +18,7 @@ import StepNode from "./StepNode";
 import EmojiNode from "./EmojiNode";
 import GroupStepNode from "./GroupStepNode";
 import Toolbar from "./Toolbar";
+import Friends from "./Friends";
 import { GRID_SPACE } from "./constants";
 
 // our custom node types
@@ -185,24 +186,10 @@ function Flow({ roomId, initialNodes, initialEdges }) {
     }
   }, [reactFlowInstance, wrapperRef]);
 
-  const cursorViewportStyles = { position: "absolute", width: "100%", height: "100%", top: 0, left: 0, transformOrigin: "0 0" };
-  if (viewport) {
-    cursorViewportStyles.transform = `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`;
-  }
-
-  const cursorStyles = { transform: "translate(0, 0)", position: "absolute" };
-  if (cursorPosition) {
-    cursorStyles.transform = `translate(${cursorPosition.x}px, ${cursorPosition.y}px)`;
-  }
-
   return (
     <div ref={wrapperRef} className={styles.flow}>
       <Logo />
-      <div style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%", overflow: "hidden"}}>
-        <div style={cursorViewportStyles}>
-          <div style={cursorStyles}>👀</div>
-        </div>
-      </div>
+      <Friends viewport={viewport} cursorPosition={cursorPosition} />
       <ReactFlow
         nodes={nodes}
         edges={edges}
