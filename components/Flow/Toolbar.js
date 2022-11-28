@@ -79,13 +79,9 @@ const EmojiIcon = ({ active = false }) => (
 
 const Toolbar = () => (
   <div className={styles.container}>
-    <div className={styles.main}>
-      <MoveIcon active />
-      <NewSectionIcon />
-      <EmojiIcon />
-    </div>
-    <div className={styles.theme}>
-    </div>
+    <MoveIcon active />
+    <NewSectionIcon />
+    <EmojiIcon />
   </div>
 )
 

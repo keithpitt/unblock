@@ -55,6 +55,10 @@
     &:hover {
       background: $gray-200;
     }
+    .themeIcon {
+      max-width: 16px;
+      max-height: 16px;
+    }
   }
 }
 

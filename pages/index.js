@@ -8,7 +8,6 @@ import fsPromises from 'fs/promises';
 import path from 'path'
 
 import Flow from "components/Flow";
-import ThemeSwitch from "components/ThemeSwitch";
 
 import { generateGraphFromBuildSteps } from "utils/graph";
 
@@ -75,7 +74,6 @@ export default function Home({ build, emoji }) {
         <title>🎮</title>
       </Head>
       <EmojiContext.Provider value={emoji}>
-        <ThemeSwitch />
         <Flow roomId={build.uuid} initialNodes={nodes} initialEdges={edges} />
       </EmojiContext.Provider>
     </div>
