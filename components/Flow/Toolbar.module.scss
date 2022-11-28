@@ -14,6 +14,18 @@
   z-index: 9999;
   display: flex;
   gap: 8px;
+
+  button {
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+    box-sizing: content-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .icon {
@@ -31,7 +43,6 @@
   border-radius: 8px;
   color: #fff;
 }
-
 
 [data-theme="dark"] .container {
   background: $slate-800;

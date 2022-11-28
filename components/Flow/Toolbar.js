@@ -77,11 +77,11 @@ const EmojiIcon = ({ active = false }) => (
   </Svg>
 )
 
-const Toolbar = () => (
+const Toolbar = ({mode, onButtonClick}) => (
   <div className={styles.container}>
-    <MoveIcon active />
-    <NewSectionIcon />
-    <EmojiIcon />
+    <button type="button" onClick={() => onButtonClick('move')}><MoveIcon active={mode == 'move'} /></button>
+    <button type="button" onClick={() => onButtonClick('section')}><NewSectionIcon active={mode == 'section'} /></button>
+    <button type="button" onClick={() => onButtonClick('emoji')}><EmojiIcon active={mode == 'emoji'} /></button>
   </div>
 )
 

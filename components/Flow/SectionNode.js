@@ -65,6 +65,17 @@ const SectionNode = ({ id, data, selected, dragging, emoji }) => {
     });
   };
 
+  const onLabelDoubleClick = (event) => {
+    updateNodeData(id, ({ data }) => {
+      return { label: prompt("Enter a label", data.label) };
+    });
+  };
+
+  let style = {};
+  if (data.color) {
+    style.backgroundColor = data.color;
+  }
+
   return (
     <>
       <Moveable
@@ -84,18 +95,18 @@ const SectionNode = ({ id, data, selected, dragging, emoji }) => {
       <div
         className={styles.container}
         ref={resizeRef}
-        style={{ backgroundColor: data.color }}
+        style={style}
       >
         <div
           className={styles.toolbar}
-          style={{ display: selected && !dragging ? "block" : "none" }}
+          style={{ display: false && selected && !dragging ? "block" : "none" }}
         >
           <button>Color</button>
           <div className={styles.colorPicker}>
             <GithubPicker onChangeComplete={onColorChange} width={213} />
           </div>
         </div>
-        <div className={styles.label}>{data.label}</div>
+        <div className={styles.label} onDoubleClick={onLabelDoubleClick}>{data.label}</div>
       </div>
     </>
   );

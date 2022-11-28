@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useTheme } from 'next-themes'
 import ReactFlow, {
   useNodesState,
@@ -116,13 +116,17 @@ const Logo = () => (
 );
 
 function Flow({ roomId, initialNodes, initialEdges }) {
+  const [ toolbarMode, setToolbarMode ] = useState('move');
+
   const {
     init,
     liveblocks: { enterRoom, leaveRoom },
+    addNewNode,
     onNodesChange,
     onEdgesChange,
     nodes,
     edges,
+    addSection
   } = useStore();
 
   useEffect(() => {
@@ -133,6 +137,17 @@ function Flow({ roomId, initialNodes, initialEdges }) {
   useEffect(() => {
     init({ nodes: initialNodes, edges: initialEdges });
   }, [ initialNodes, initialEdges ]);
+
+  const onClick = useCallback((event) => {
+    if (toolbarMode == 'section') {
+      addNewNode({ type: 'section', data: { label: prompt("Enter a label") }, position: { x: 0, y: 0 }, style: { height: 100, width: 100 }, zIndex: -1 });
+      setToolbarMode('move');
+    }
+  }, [toolbarMode]);
+
+  const onToolbarButtonClick = useCallback((mode) => {
+    setToolbarMode(mode);
+  }, []);
 
   return (
     <div className={styles.flow}>
@@ -150,6 +165,7 @@ function Flow({ roomId, initialNodes, initialEdges }) {
         // Pan on scroll wheel
         panOnScroll
         proOptions={proOptions}
+
         // Snap dragging to our grid
         snapToGrid
         snapGrid={[GRID_SPACE, GRID_SPACE]}
@@ -163,6 +179,7 @@ function Flow({ roomId, initialNodes, initialEdges }) {
         maxZoom={1}
         fitViewOptions={fitViewOptions}
         defaultzoom={1}
+        onPaneClick={onClick}
       >
         <Background
           variant="dots"
@@ -171,7 +188,7 @@ function Flow({ roomId, initialNodes, initialEdges }) {
           color="currentColor"
         />
         <UIControls />
-        <Toolbar />
+        <Toolbar mode={toolbarMode} onButtonClick={onToolbarButtonClick} />
       </ReactFlow>
     </div>
   );

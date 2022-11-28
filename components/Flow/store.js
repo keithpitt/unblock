@@ -27,6 +27,14 @@ const useStore = create(
         });
       },
 
+      addNewNode: (node) => {
+        if (!node.id) {
+          node.id = `dndnode_${Math.random() * 10000}`;
+        }
+
+        set({ nodes: [...get().nodes, node] });
+      },
+
       onEdgesChange: (changes) => {
         set({
           edges: applyEdgeChanges(changes, get().edges),
