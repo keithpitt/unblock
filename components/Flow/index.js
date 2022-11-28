@@ -126,11 +126,13 @@ function Flow({ roomId, initialNodes, initialEdges }) {
   const [ toolbarMode, setToolbarMode ] = useState('move');
   const [ reactFlowInstance, setReactFlowInstance ] = useState(null);
   const [ viewport, setViewport ] = useState(null);
-  const [ cursorPosition, setCursorPosition ] = useState(null);
+  const [ isMouseDown, setMouseDown ] = useState(null);
 
   const {
     init,
     liveblocks: { enterRoom, leaveRoom },
+    setCursor,
+    setInteracting,
     addNewNode,
     onNodesChange,
     onEdgesChange,
@@ -182,14 +184,34 @@ function Flow({ roomId, initialNodes, initialEdges }) {
     if (reactFlowInstance && wrapperRef) {
       const wrapperBounds = wrapperRef.current.getBoundingClientRect();
       const position = reactFlowInstance.project({ x: event.clientX - wrapperBounds.x, y: event.clientY - wrapperBounds.top });
-      setCursorPosition(position);
+      setCursor(position);
     }
   }, [reactFlowInstance, wrapperRef]);
 
+  const onMouseDown = useCallback((event) => {
+    setInteracting(true);
+  }, []);
+
+  const onMouseUp = useCallback((event) => {
+    setInteracting(false);
+  }, []);
+
+  const onNodeDrag = useCallback((event) => {
+    setInteracting(true);
+  }, []);
+
+  const onNodeDragStop = useCallback((event) => {
+    setInteracting(false);
+  }, []);
+
+  const onMouseLeave = useCallback((event) => {
+    setCursor(null);
+  }, []);
+
   return (
-    <div ref={wrapperRef} className={styles.flow}>
+    <div ref={wrapperRef} className={styles.flow} onMouseMove={onPaneMouseMove} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseLeave={onMouseLeave}>
+      <Friends viewport={viewport} />
       <Logo />
-      <Friends viewport={viewport} cursorPosition={cursorPosition} />
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -220,7 +242,8 @@ function Flow({ roomId, initialNodes, initialEdges }) {
         defaultzoom={1}
         onPaneClick={onClick}
         onMove={onMove}
-        onPaneMouseMove={onPaneMouseMove}
+        onNodeDrag={onNodeDrag}
+        onNodeDragStop={onNodeDragStop}
       >
         <Background
           variant="dots"

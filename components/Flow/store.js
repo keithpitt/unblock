@@ -16,6 +16,8 @@ const useStore = create(
     (set, get) => ({
       nodes: [],
       edges: [],
+      cursor: null,
+      isInteracting: false,
 
       init: ({ nodes, edges }) => {
         set({ nodes, edges });
@@ -77,12 +79,24 @@ const useStore = create(
           }),
         });
       },
+
+      setCursor: (position) => {
+        set({ cursor: position });
+      },
+
+      setInteracting: (isInteracting) => {
+        set({ isInteracting: isInteracting });
+      },
     }),
     {
       client,
       storageMapping: {
         nodes: true,
         edges: true
+      },
+      presenceMapping: {
+        cursor: true,
+        isInteracting: true
       }
     }
   )
