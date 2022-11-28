@@ -120,6 +120,7 @@ function Flow({ roomId, initialNodes, initialEdges }) {
     init,
     liveblocks: { enterRoom, leaveRoom },
     onNodesChange,
+    onEdgesChange,
     nodes,
     edges,
   } = useStore();
@@ -140,6 +141,7 @@ function Flow({ roomId, initialNodes, initialEdges }) {
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
         connectionLineType={ConnectionLineType.SmoothStep}

@@ -27,6 +27,12 @@ const useStore = create(
         });
       },
 
+      onEdgesChange: (changes) => {
+        set({
+          edges: applyEdgeChanges(changes, get().edges),
+        });
+      },
+
       updateNodeStyle: (nodeId, callback) => {
         set({
           nodes: get().nodes.map((node) => {
