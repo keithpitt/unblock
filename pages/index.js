@@ -48,7 +48,10 @@ function convertToLiveblocksStorage(object) {
 }
 
 function convertFromLiveblocksStorage(object) {
-  if (typeof object == 'object') {
+  // turns out typeof(null) is a "object", lol.
+  if (typeof object == 'string' || typeof object == 'number' || typeof object == 'boolean' || object === null || object === undefined) {
+    return object;
+  } else if (typeof object == 'object') {
     if (object.liveblocksType == 'LiveObject') {
       let x = { };
       for (const [key, value] of Object.entries(object.data)) {
@@ -60,8 +63,6 @@ function convertFromLiveblocksStorage(object) {
     } else {
       throw new Error(`cant convertFromLiveblocksStorage with liveblocksType: ${object.liveblocksType}`);
     }
-  } else if (typeof object == 'string' || typeof object == 'number' || typeof object == 'boolean') {
-    return object;
   } else {
     throw new Error(`cant convertFromLiveblocksStorage with typeof: ${typeof(object)}`);
   }
