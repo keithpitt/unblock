@@ -1,5 +1,5 @@
 import { useRef, useCallback, useState, useEffect } from "react";
-import { useTheme } from 'next-themes'
+import { useTheme } from "next-themes";
 import ReactFlow, {
   useNodesState,
   useEdgesState,
@@ -8,7 +8,7 @@ import ReactFlow, {
   ConnectionLineType,
   Background,
   Controls,
-  ControlButton
+  ControlButton,
 } from "reactflow";
 import useStore from "./store";
 import styles from "./Flow.module.scss";
@@ -55,12 +55,12 @@ const fitViewOptions = {
 };
 
 const UIControls = () => {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
   function toggleTheme() {
     if (theme === "light") {
-      setTheme("dark")
+      setTheme("dark");
     } else {
-      setTheme("light")
+      setTheme("light");
     }
   }
   return (
@@ -70,19 +70,41 @@ const UIControls = () => {
       className={styles.controls}
     >
       <ControlButton onClick={() => toggleTheme()}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" fill="currentColor" className={styles.themeIcon}>
-        {
-          (theme === "light") ?
-            <path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM5.404 6.464a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.061 1.06l1.06 1.06z" />
-          :
-            <path fillRule="evenodd" d="M7.455 2.004a.75.75 0 01.26.77 7 7 0 009.958 7.967.75.75 0 011.067.853A8.5 8.5 0 116.647 1.921a.75.75 0 01.808.083z" clipRule="evenodd" />
-        }
-      </svg>
-
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+          style={{
+            maxWidth: 18,
+            maxHeight: 18,
+          }}
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M12 3.75C7.44365 3.75 3.75 7.44365 3.75 12C3.75 16.5563 7.44365 20.25 12 20.25C16.5563 20.25 20.25 16.5563 20.25 12C20.25 7.44365 16.5563 3.75 12 3.75ZM2.25 12C2.25 6.61522 6.61522 2.25 12 2.25C17.3848 2.25 21.75 6.61522 21.75 12C21.75 17.3848 17.3848 21.75 12 21.75C6.61522 21.75 2.25 17.3848 2.25 12Z"
+            fill="currentColor"
+          />
+          {theme === "light" ? (
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M12 18C15.3137 18 18 15.3137 18 12C18 10.4303 17.3972 9.00141 16.4105 7.93213L7.93214 16.4105C9.00142 17.3972 10.4303 18 12 18Z"
+              fill="currentColor"
+            />
+          ) : (
+            <path
+              d="M16.4105 7.93213L7.93213 16.4105C6.7441 15.3143 6 13.744 6 12C6 8.68629 8.68629 6 12 6C13.744 6 15.3143 6.7441 16.4105 7.93213Z"
+              fill="currentColor"
+            />
+          )}
+        </svg>
       </ControlButton>
     </Controls>
-  )
-}
+  );
+};
 
 const Logo = () => (
   <div className={styles.logo}>
@@ -123,10 +145,10 @@ const Logo = () => (
 function Flow({ roomId, initialNodes, initialEdges }) {
   const wrapperRef = useRef(null);
 
-  const [ toolbarMode, setToolbarMode ] = useState('move');
-  const [ reactFlowInstance, setReactFlowInstance ] = useState(null);
-  const [ viewport, setViewport ] = useState(null);
-  const [ isMouseDown, setMouseDown ] = useState(null);
+  const [toolbarMode, setToolbarMode] = useState("move");
+  const [reactFlowInstance, setReactFlowInstance] = useState(null);
+  const [viewport, setViewport] = useState(null);
+  const [isMouseDown, setMouseDown] = useState(null);
 
   const {
     init,
@@ -138,7 +160,7 @@ function Flow({ roomId, initialNodes, initialEdges }) {
     onEdgesChange,
     nodes,
     edges,
-    addSection
+    addSection,
   } = useStore();
 
   useEffect(() => {
@@ -148,25 +170,48 @@ function Flow({ roomId, initialNodes, initialEdges }) {
 
   useEffect(() => {
     init({ nodes: initialNodes, edges: initialEdges });
-  }, [ initialNodes, initialEdges ]);
+  }, [initialNodes, initialEdges]);
 
-  const onClick = useCallback((event) => {
-    if (reactFlowInstance) {
-      const wrapperBounds = wrapperRef.current.getBoundingClientRect();
-      const position = reactFlowInstance.project({ x: event.clientX - wrapperBounds.x, y: event.clientY - wrapperBounds.top });
+  const onClick = useCallback(
+    (event) => {
+      if (reactFlowInstance) {
+        const wrapperBounds = wrapperRef.current.getBoundingClientRect();
+        const position = reactFlowInstance.project({
+          x: event.clientX - wrapperBounds.x,
+          y: event.clientY - wrapperBounds.top,
+        });
 
-      if (toolbarMode == 'section') {
-        addNewNode({ type: 'section', data: { label: "New Section" }, position: position, style: { height: 200, width: 200 }, zIndex: -1 });
-      } else if (toolbarMode == 'media') {
-        addNewNode({ type: 'media', data: { src: prompt("Enter a URL") }, position: position, style: { height: 200, width: 200 }, zIndex: -1 });
-      } else if (toolbarMode == 'emoji') {
-        addNewNode({ type: 'emoji', data: { emoji: prompt("Enter an emoji") }, position: position, style: { height: 30, width: 30 }, zIndex: -1 });
+        if (toolbarMode == "section") {
+          addNewNode({
+            type: "section",
+            data: { label: "New Section" },
+            position: position,
+            style: { height: 200, width: 200 },
+            zIndex: -1,
+          });
+        } else if (toolbarMode == "media") {
+          addNewNode({
+            type: "media",
+            data: { src: prompt("Enter a URL") },
+            position: position,
+            style: { height: 200, width: 200 },
+            zIndex: -1,
+          });
+        } else if (toolbarMode == "emoji") {
+          addNewNode({
+            type: "emoji",
+            data: { emoji: prompt("Enter an emoji") },
+            position: position,
+            style: { height: 30, width: 30 },
+            zIndex: -1,
+          });
+        }
+
+        setToolbarMode("move");
       }
-
-      setToolbarMode('move');
-    }
-  }, [reactFlowInstance, wrapperRef, toolbarMode]);
-
+    },
+    [reactFlowInstance, wrapperRef, toolbarMode]
+  );
 
   const onToolbarButtonClick = useCallback((mode) => {
     setToolbarMode(mode);
@@ -180,13 +225,19 @@ function Flow({ roomId, initialNodes, initialEdges }) {
     setViewport(viewport);
   }, []);
 
-  const onPaneMouseMove = useCallback((event) => {
-    if (reactFlowInstance && wrapperRef) {
-      const wrapperBounds = wrapperRef.current.getBoundingClientRect();
-      const position = reactFlowInstance.project({ x: event.clientX - wrapperBounds.x, y: event.clientY - wrapperBounds.top });
-      setCursor(position);
-    }
-  }, [reactFlowInstance, wrapperRef]);
+  const onPaneMouseMove = useCallback(
+    (event) => {
+      if (reactFlowInstance && wrapperRef) {
+        const wrapperBounds = wrapperRef.current.getBoundingClientRect();
+        const position = reactFlowInstance.project({
+          x: event.clientX - wrapperBounds.x,
+          y: event.clientY - wrapperBounds.top,
+        });
+        setCursor(position);
+      }
+    },
+    [reactFlowInstance, wrapperRef]
+  );
 
   const onMouseDown = useCallback((event) => {
     setInteracting(true);
@@ -209,7 +260,14 @@ function Flow({ roomId, initialNodes, initialEdges }) {
   }, []);
 
   return (
-    <div ref={wrapperRef} className={styles.flow} onMouseMove={onPaneMouseMove} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseLeave={onMouseLeave}>
+    <div
+      ref={wrapperRef}
+      className={styles.flow}
+      onMouseMove={onPaneMouseMove}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseLeave}
+    >
       <Friends viewport={viewport} />
       <Logo />
       <ReactFlow
@@ -226,7 +284,6 @@ function Flow({ roomId, initialNodes, initialEdges }) {
         panOnScroll
         proOptions={proOptions}
         onInit={onInit}
-
         // Snap dragging to our grid
         snapToGrid
         snapGrid={[GRID_SPACE, GRID_SPACE]}
