@@ -79,8 +79,8 @@ export async function getServerSideProps(context) {
   }
 
   // worst validation ever
-  if (buildSlug != 'default' || buildSlug != 'b1' || buildSlug != 'b2' || buildSlug != 'b3') {
-    buildSlug == 'default';
+  if (buildSlug != 'default' && buildSlug != 'b1' && buildSlug != 'b2' && buildSlug != 'b3') {
+    buildSlug = 'default';
   }
 
   let version = context.query["version"];
@@ -92,7 +92,7 @@ export async function getServerSideProps(context) {
     version = "v1";
   }
 
-  const filePath = path.join(process.cwd(), 'json', buildSlug + '.json');
+  const filePath = path.join(process.cwd(), 'public', 'json', buildSlug + '.json');
   const jsonData = await fsPromises.readFile(filePath);
   const buildResponse = JSON.parse(jsonData);
   const roomId = encodeURIComponent(`${buildSlug}-${version}`);
