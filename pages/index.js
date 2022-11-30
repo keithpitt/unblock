@@ -94,6 +94,8 @@ export async function getServerSideProps(context) {
 
   const filePath = path.join(process.cwd(), 'public', 'json', buildSlug + '.json');
   const jsonData = await fsPromises.readFile(filePath);
+  console.log(filePath);
+  console.log(jsonData);
   const buildResponse = JSON.parse(jsonData);
   const roomId = encodeURIComponent(`${buildSlug}-${version}`);
 
