@@ -92,7 +92,7 @@ export async function getServerSideProps(context) {
     version = "v1";
   }
 
-  const filePath = path.join(process.cwd(), 'public', 'json', buildSlug + '.json');
+  const filePath = path.join(process.cwd(), 'public', 'json', `${buildSlug}.json`);
   const jsonData = await fsPromises.readFile(filePath);
   console.log(filePath);
   console.log(jsonData);
